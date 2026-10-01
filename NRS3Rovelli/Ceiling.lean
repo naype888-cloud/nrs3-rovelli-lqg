@@ -21,9 +21,9 @@ theorem of the base repository, restated; nothing is declared.
 * `tendsto_angle_ceiling` : `θ_NRS(d) → arccos (1 / C_∞)` (Szegő limit, `D8`).
 * `ceiling_isLUB` : the ceiling is the least upper bound of the angles of every `d ≥ 4`.
 
-**Reading (a proposal, not a theorem, outside the NRS³ core).** The ceiling is a limit, never a state: the maximally localized
-excitation that LQG calls the graviton has no finite-`d` realization at `arccos (1 / C_∞)`;
-every axis stays strictly below it.
+**Reading (a proposal, not a theorem, outside the NRS³ core).** The ceiling is a limit,
+never a state: the maximally localized excitation that LQG calls the graviton has no finite-`d`
+realization at `arccos (1 / C_∞)`; every axis stays strictly below it.
 -/
 
 @[expose] public section
