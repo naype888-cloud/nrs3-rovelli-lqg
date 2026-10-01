@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NRS³ · Rovelli — area quanta and the localization ceiling</title>
-<meta name="description" content="The LQG area spectrum 8πγ lp²√(j(j+1)) is a ladder of isolated levels — no surface below one quantum. In NRS³ the localization angle θ(ψ) is capped by arccos(1/C∞) ≈ 28.30°; the graviton saturates the ceiling.">
+<meta name="description" content="The LQG area spectrum 8πγ lp²√(j(j+1)) is a ladder of isolated levels — no surface below one quantum. In NRS³ the localization angle θ(ψ) is capped by arccos(1/C∞) ≈ 28.30°; the ceiling is a limit no axis reaches. Horizon entropy by counting punctures fixes the Immirzi parameter.">
 <style>
   :root { --bg: #fcfcfb; --panel: #fff; --ink: #0b0b0b; --ink2: #52514e; --muted: #8a8985;
     --grid: #e4e3df; --blue: #2a78d6; --orange: #eb6834; --soft: rgba(235,104,52,.12); }
@@ -55,62 +55,65 @@
   <h1>NRS³ · Rovelli — area quanta and the localization ceiling</h1>
   <p class="lead">In loop quantum gravity (Rovelli, <i>La realidad no es lo que parece</i>, Ch. 6)
     a surface can only have area <code>A(j) = 8 π γ lp² √(j (j + 1))</code> with
-    <code>j ∈ ½ ℕ</code>: a ladder of isolated levels, with nothing — not even a tenth of
-    <code>8 π L_p²</code> — in between. In NRS³ this granularity is dimensional uncertainty: the
-    localization angle <code>θ(ψ)</code> of a state is capped by
-    <code>arccos(1/C∞) ≈ 28.30°</code>, and the graviton is the state that saturates the cap.</p>
+    <code>j ∈ ½ ℕ</code>: one puncture gives a ladder of separated levels, and no surface carries
+    a fraction of the lowest one. In NRS³ this granularity is dimensional uncertainty: the NRS
+    angle <code>θ_NRS(d) = arccos(1/C_Nava(d))</code> of an axis with <code>d</code> sites is
+    <code>0</code> for <code>d = 2, 3</code>, <code>7.43°</code> at <code>d = 4</code>, and grows toward
+    <code>arccos(1/C∞) ≈ 28.30°</code> without ever reaching it.</p>
 
   <div class="controls">
     <button type="button" id="play" aria-label="Play">▶</button>
     <label class="sl">spin j<input id="j" type="range" min="1" max="12" step="1" value="1"><b id="vj">½</b></label>
-    <label class="sl">θ(ψ) toward the ceiling<input id="th" type="range" min="0" max="28.3" step="0.05" value="7.43"><b id="vth">7.43°</b></label>
+    <label class="sl">sites d of the axis<input id="dd" type="range" min="0" max="1000" step="1" value="81"><b id="vd">4</b></label>
   </div>
 
   <div class="grid">
-    <div class="card"><h2>The area spectrum: isolated levels (units 8π lp², γ = 1)</h2>
+    <div class="card"><h2>The area spectrum of one puncture (units ℓ_P², γ = 1)</h2>
       <div class="legend">
         <span><span class="sw" style="border-color:var(--blue)"></span>area levels A(j)</span>
-        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>minimal quantum 4π√3 lp²</span>
+        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>lowest level A(1/2) = 4π√3 ℓ_P²</span>
         <span><span class="sw" style="border-color:var(--ink);border-top-style:dotted"></span>gap: no eigenvalues</span></div>
       <canvas id="spec" aria-label="LQG area spectrum stem plot"></canvas></div>
-    <div class="card"><h2>θ(ψ) against the NRS³ ceiling</h2>
+    <div class="card"><h2>θ_NRS(d) against the NRS³ ceiling</h2>
       <div class="legend">
-        <span><span class="sw" style="border-color:var(--blue)"></span>your state</span>
-        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>ceiling arccos(1/C∞) ≈ 28.30°</span>
-        <span><span class="sw" style="border-color:var(--orange);border-top-style:dotted"></span>graviton: saturates the ceiling</span></div>
+        <span><span class="sw" style="border-color:var(--blue)"></span>θ_NRS(d), exact (D37b)</span>
+        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>ceiling arccos(1/C∞) ≈ 28.30°: limit, never attained</span></div>
       <canvas id="gauge" aria-label="Localization angle gauge"></canvas></div>
   </div>
 
   <div class="readout" aria-live="polite">
     <div class="stat"><div class="k">area A(j)</div><div class="v" id="ra">–</div></div>
-    <div class="stat"><div class="k">quanta of 4π√3 lp²</div><div class="v" id="rn">–</div></div>
-    <div class="stat"><div class="k">θ(ψ)</div><div class="v" id="rt">–</div></div>
+    <div class="stat"><div class="k">A(j) / A(1/2)</div><div class="v" id="rn">–</div></div>
+    <div class="stat"><div class="k">θ_NRS(d)</div><div class="v" id="rt">–</div></div>
     <div class="stat"><div class="k">distance to the ceiling</div><div class="v" id="rd">–</div></div>
   </div>
 
   <h2>Results</h2>
   <table>
     <tr><th>Statement</th><th>Lean</th></tr>
-    <tr><td><code>A(j) = 8 π γ lp² √(j (j + 1))</code></td><td><code>areaSpectrum</code></td></tr>
-    <tr><td>separated levels: <code>0 ≤ j ≤ k</code> gives <code>A(j) ≤ A(k)</code></td><td><code>areaSpectrum_mono</code></td></tr>
-    <tr><td>every level with <code>j ≥ 1/2</code> dominates <code>4 π √3 γ lp²</code></td><td><code>areaSpectrum_min</code></td></tr>
-    <tr><td>entropy of a cut = logarithm of its puncture count</td><td><code>punctureEntropy</code></td></tr>
-    <tr><td><code>θ(ψ) ≤ arccos(1/C)</code>, the universal ceiling ≈ 28.30° (declared)</td><td><code>theta_le_ceiling</code></td></tr>
-    <tr><td>area quanta are counted δ∞ quanta (declared)</td><td><code>areaQuanta_are_defectQuanta</code></td></tr>
-    <tr><td>the graviton saturates the ceiling (declared)</td><td><code>graviton_saturates_ceiling</code></td></tr>
+    <tr><td><code>A(j) = 8 π γ ℓ_P² √(j (j + 1))</code>, Immirzi <code>γ</code> generic</td><td><code>areaSpectrum</code></td></tr>
+    <tr><td>separated levels: <code>0 ≤ j &lt; k</code> gives <code>A(j) &lt; A(k)</code></td><td><code>areaSpectrum_strictMono</code></td></tr>
+    <tr><td>lowest level <code>A(1/2) = 4 π √3 γ ℓ_P²</code>, below every <code>j ≥ 1/2</code></td><td><code>areaSpectrum_half</code>, <code>areaSpectrum_min</code></td></tr>
+    <tr><td><code>n</code> punctures have area <code>≥ n · A(1/2)</code></td><td><code>surfaceArea_ge</code></td></tr>
+    <tr><td>entropy of <code>n</code> spin-<code>j</code> punctures <code>= log (2j + 1)ⁿ</code>, additive</td><td><code>punctureEntropy_eq_log_card</code>, <code>punctureEntropy_add</code></td></tr>
+    <tr><td><code>S = A / 4ℓ_P²</code> iff <code>γ = log 2 / (π √3)</code></td><td><code>bekensteinHawking_iff_immirzi</code></td></tr>
+    <tr><td><code>θ_NRS(4) ≤ θ_NRS(d) &lt; arccos(1/C∞)</code> for <code>d ≥ 4</code></td><td><code>angle_lt_ceiling</code></td></tr>
+    <tr><td>the ceiling is the limit and the supremum, never attained</td><td><code>tendsto_angle_ceiling</code>, <code>ceiling_isLUB</code>, <code>ceiling_not_attained</code></td></tr>
   </table>
+  <p class="note">No axioms: every result depends only on <code>propext</code>,
+    <code>Classical.choice</code> and <code>Quot.sound</code>. The ceiling results are theorems of the
+    base repository (<code>D37b</code>, <code>D8</code>), imported, not declared.</p>
 
   <h2>In NRS³</h2>
-  <p class="note">1. <b>Foam / granularity = dimensional uncertainty</b>: the granularity of quantum
-    space is read as the dimensional uncertainty quantified by <code>C_Nava(d)</code> and
-    <code>θ(ψ) ∈ [0, π/2]</code>; numerically <code>θ(4) = 7.43°</code> against the ceiling
-    <code>arccos(1/C∞) ≈ 28.30°</code>.<br>
-    2. <b>Area quanta ↔ δ∞ quanta</b>: the discrete LQG spectrum corresponds to counting the δ∞
-    defect quanta of <code>nrs3-defect-curvature</code>; a surface is a cut whose entropy counts
-    its quanta (punctures).<br>
-    3. <b>The graviton</b>: in LQG it is the quantum excitation of the gravitational field — the
-    quantum Faraday lines of Ch. 6; in NRS³ it is the state of maximal localization permitted by
-    the ceiling, the top of the band <code>Ϙ(d)</code> of the base theorems D44/D46.</p>
+  <p class="note">1. <b>Granularity = dimensional uncertainty</b>: the granularity of quantum
+    space is read as the dimensional uncertainty of <code>(T_d, P_d)</code>, measured by
+    <code>θ_NRS(d)</code>: <code>0</code> at <code>d = 2, 3</code>, <code>7.43°</code> at
+    <code>d = 4</code>, strictly below <code>arccos(1/C∞) ≈ 28.30°</code> for every <code>d</code>.<br>
+    2. <b>Area quanta</b>: each puncture carries at least one lowest quantum <code>A(1/2)</code>; the
+    entropy is linear in the number of punctures, as the entropy of a cut in
+    <code>nrs3-defect-curvature</code> is linear in its δ∞ quanta (a reading, not a theorem here).<br>
+    3. <b>The graviton</b>: the maximally localized excitation has no finite-<code>d</code> state at the
+    ceiling; <code>arccos(1/C∞)</code> is a limit, approached as <code>d → ∞</code> and never reached.</p>
 
   <img class="fig" src="figures/rovelli_area_spectrum.png" alt="LQG area spectrum: isolated levels">
   <img class="fig" src="figures/rovelli_theta_punctures.png"
@@ -118,9 +121,7 @@
 
   <p class="note">Source text: Carlo Rovelli, <i>La realidad no es lo que parece</i> (2017), Ch. 5
     (quantum space-time), Ch. 6 (area and volume quanta, spin networks) and Ch. 10 (black-hole
-    entropy by counting punctures). The bridge axioms in
-    <a href="https://github.com/naype888-cloud/nrs3-rovelli-lqg">nrs3-rovelli-lqg</a> are declared
-    physical premises, as in the rest of the NRS³ series.</p>
+    entropy by counting punctures).</p>
 
   <footer>NRS Noncommercial License 1.0.0 · Author: Eduardo Nava-Hernandez ·
     <a href="https://github.com/naype888-cloud/nrs3-rovelli-lqg">github.com/naype888-cloud/nrs3-rovelli-lqg</a></footer>
@@ -129,10 +130,16 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  const CEIL = 28.30;                    // arccos(1 / C_infty) in degrees
+  const deg = (x) => x * 180 / Math.PI;
+  const CEIL = deg(Math.acos(1 / Math.sqrt(Math.PI ** 2 / 3 - 2))); // arccos(1 / C_infty)
+  // theta_NRS(d) = arccos(1 / C_Nava(d)), C_Nava(d)^2 in closed form (D8_Szego)
+  const thetaNRS = (d) => { const n = d + 1, t = Math.PI / n;
+    const c2 = 2 * (d - 1) / (n * Math.cos(t) ** 2) * (((n * n + 2) / 6) * Math.sin(t) ** 2 - 1);
+    return deg(Math.acos(Math.min(1, 1 / Math.sqrt(c2)))); };
+  const dOf = (u) => Math.round(2 * Math.pow(5000, u / 1000)); // slider 0..1000 -> d = 2..10000
   const A = (j) => 8 * Math.PI * Math.sqrt(j * (j + 1)); // units lp^2, gamma = 1
   const JMIN = A(0.5), JMAX = 6.5;
-  let js = 1, th = 7.43, playing = false, last = 0;
+  let js = 1, du = 81, playing = false, last = 0, acc = 0;
 
   function setup(c) {
     const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
@@ -152,7 +159,7 @@
     g.fillStyle = css("--soft"); g.fillRect(L, Y(JMIN), W, T + H - Y(JMIN));
     g.strokeStyle = css("--orange"); g.lineWidth = 2; g.setLineDash([7, 5]); g.beginPath();
     g.moveTo(L, Y(JMIN)); g.lineTo(L + W, Y(JMIN)); g.stroke(); g.setLineDash([]);
-    g.fillStyle = css("--orange"); g.fillText("minimal quantum 4π√3 lp²", L + 6, Y(JMIN) - 6);
+    g.fillStyle = css("--orange"); g.fillText("lowest level A(1/2) = 4π√3 ℓ_P²", L + 6, Y(JMIN) - 6);
     // levels: isolated stems; the gap between consecutive levels is dotted
     const sel = js / 2;
     for (let j = 0.5; j <= 6; j += 0.5) {
@@ -165,11 +172,11 @@
       g.beginPath(); g.arc(X(j), Y(A(j)), on ? 7 : 4.5, 0, 2 * Math.PI); g.fill();
     }
     g.fillStyle = css("--ink2"); g.font = "12.5px system-ui, sans-serif";
-    g.fillText("no level below the first rung — not even a tenth of 8π L_p²", L + 6, T + H - 10);
+    g.fillText("no surface below the first rung", L + 6, T + H - 10);
   }
 
   function drawGauge() {
-    const [g, w, h] = setup($("gauge")), cx = w / 2, cy = h * 0.82, S = Math.min(w / 2.3, h * 0.72);
+    const [g, w, h] = setup($("gauge")), cx = w / 2, cy = h * 0.78, S = Math.min(w / 2.3, h * 0.72);
     const a0 = Math.PI, a1 = 0; // half disc, 0..90 deg left to right
     const P = (deg) => { const a = a0 + (deg / 90) * (a1 - a0);
       return [cx + S * Math.cos(a), cy - S * Math.sin(a)]; };
@@ -187,38 +194,35 @@
     g.strokeStyle = css("--orange"); g.lineWidth = 2; g.setLineDash([7, 5]);
     g.beginPath(); g.moveTo(cx, cy); const pc = P(CEIL); g.lineTo(pc[0], pc[1]); g.stroke(); g.setLineDash([]);
     g.fillStyle = css("--orange"); g.fillText("ceiling ≈ 28.30°", Math.max(4, pc[0] - 96), pc[1] - 8);
-    // the graviton: a state saturating the ceiling
-    const pg = P(CEIL);
-    g.fillStyle = css("--orange"); g.font = "15px system-ui, sans-serif";
-    g.fillText("★", pg[0] - 8, pg[1] + 6);
-    g.font = "11px system-ui, sans-serif"; g.fillText("graviton", Math.min(w - 52, pg[0] + 6), pg[1] + 4);
-    // the state marker
-    const p = P(th);
+    // the axis with d sites
+    const dd = dOf(du), th = thetaNRS(dd), p = P(th);
     g.strokeStyle = css("--blue"); g.lineWidth = 3; g.beginPath(); g.moveTo(cx, cy); g.lineTo(p[0], p[1]); g.stroke();
     g.fillStyle = css("--blue"); g.beginPath(); g.arc(p[0], p[1], 6, 0, 2 * Math.PI); g.fill();
-    g.fillStyle = css("--ink2"); g.fillText("θ(ψ) = " + th.toFixed(2) + "°", cx - 30, cy - 8);
+    g.fillStyle = css("--ink2"); g.textAlign = "center"; g.fillText("θ_NRS(" + dd + ") = " + th.toFixed(3) + "°", cx, cy + 20);
+    g.textAlign = "start";
   }
 
   function update() {
     drawSpec(); drawGauge();
     const j = js / 2, a = A(j);
-    $("ra").textContent = a.toFixed(2) + " lp²";
-    $("rn").textContent = (a / JMIN).toFixed(2) + " quanta";
-    $("rt").textContent = th.toFixed(2) + "°";
-    $("rd").textContent = (CEIL - th).toFixed(2) + "°";
-    $("vj").textContent = (j % 1 === 0) ? j.toFixed(0) : Math.floor(j) + "½";
-    $("vth").textContent = th.toFixed(2) + "°";
+    const dd = dOf(du), th = thetaNRS(dd);
+    $("ra").textContent = a.toFixed(2) + " ℓ_P²";
+    $("rn").textContent = (a / JMIN).toFixed(3);
+    $("rt").textContent = th.toFixed(3) + "°";
+    $("rd").textContent = (CEIL - th).toFixed(3) + "° > 0";
+    $("vd").textContent = dd;
+    $("vj").textContent = (j % 1 === 0) ? j.toFixed(0) : (j < 1 ? "" : Math.floor(j)) + "½";
   }
 
   function tick(ts) {
     const dt = last ? Math.min(.05, (ts - last) / 1000) : 0; last = ts;
-    if (playing) { th += dt * 4; if (th > CEIL) th = 0; $("th").value = th;
-      js = js % 12 + 1; $("j").value = js; }
+    if (playing) { du = (du + dt * 120) % 1001; $("dd").value = du; acc += dt;
+      if (acc > 0.7) { acc = 0; js = js % 12 + 1; $("j").value = js; } }
     update(); requestAnimationFrame(tick);
   }
 
   $("j").addEventListener("input", (e) => { js = +e.target.value; });
-  $("th").addEventListener("input", (e) => { th = +e.target.value; });
+  $("dd").addEventListener("input", (e) => { du = +e.target.value; });
   $("play").addEventListener("click", (e) => { playing = !playing;
     e.target.textContent = playing ? "❚❚" : "▶";
     e.target.setAttribute("aria-label", playing ? "Pause" : "Play"); });
