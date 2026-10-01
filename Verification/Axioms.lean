@@ -7,15 +7,19 @@ module
 
 import NRS3Rovelli
 
-/-! Proved results: only `propext`, `Classical.choice` and `Quot.sound` are expected. -/
+/-! Only `propext`, `Classical.choice` and `Quot.sound` are expected: no declared axioms. -/
 
-#print axioms NRS3Rovelli.areaSpectrum_mono
 #print axioms NRS3Rovelli.three_quarters_le_mul
+#print axioms NRS3Rovelli.areaSpectrum_strictMono
+#print axioms NRS3Rovelli.areaSpectrum_half
 #print axioms NRS3Rovelli.areaSpectrum_min
-
-/-! Declared physical bridges (premises, by design). -/
-
-#print axioms NRS3Rovelli.theta_le_ceiling
-#print axioms NRS3Rovelli.areaQuanta_are_defectQuanta
-#print axioms NRS3Rovelli.surface_entropy_counts_punctures
-#print axioms NRS3Rovelli.graviton_saturates_ceiling
+#print axioms NRS3Rovelli.surfaceArea_ge
+#print axioms NRS3Rovelli.surfaceArea_replicate
+#print axioms NRS3Rovelli.punctureEntropy_eq_log_card
+#print axioms NRS3Rovelli.punctureEntropy_add
+#print axioms NRS3Rovelli.entropy_proportional_to_area
+#print axioms NRS3Rovelli.bekensteinHawking_iff_immirzi
+#print axioms NRS3Rovelli.angle_lt_ceiling
+#print axioms NRS3Rovelli.ceiling_not_attained
+#print axioms NRS3Rovelli.tendsto_angle_ceiling
+#print axioms NRS3Rovelli.ceiling_isLUB

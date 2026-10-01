@@ -6,5 +6,5 @@ Authors: Eduardo Nava-Hernandez
 module
 
 public import NRS3Rovelli.AreaSpectrum
-public import NRS3Rovelli.DefectQuanta
-public import NRS3Rovelli.Bridge
+public import NRS3Rovelli.PunctureEntropy
+public import NRS3Rovelli.Ceiling
