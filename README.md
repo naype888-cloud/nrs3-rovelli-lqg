@@ -1,0 +1,75 @@
+# NRS³ · Rovelli — Loop Quantum Gravity
+
+**Rovelli's quantum granularity is dimensional uncertainty: LQG area quanta are counted
+δ∞ quanta, and the graviton is the maximally localized state allowed by the NRS³ ceiling
+`θ(ψ) ≤ arccos(1/C∞) ≈ 28.30°`.** Lean 4.
+
+Source text: Carlo Rovelli, *La realidad no es lo que parece* (2017) — Ch. 5 (quantum
+space-time, GR/quantum-mechanics incompatibility), Ch. 6 (*Cuantos de espacio*:
+Jacobson–Smolin solutions of Wheeler–DeWitt, quantum Faraday lines, spin networks, discrete
+volume and area spectra, minimal area `8 π L_p² √(j (j + 1))` with `j ∈ ½ ℕ`), Ch. 10
+(black holes: each loop through the horizon is one quantum of area; entropy by counting
+punctures).
+
+## Results
+
+| Statement | Lean |
+|---|---|
+| area spectrum `A(j) = 8 π γ lp² √(j (j + 1))` (Immirzi γ = 1) | `areaSpectrum` |
+| separated levels: `0 ≤ j ≤ k` gives `A(j) ≤ A(k)` | `areaSpectrum_mono` |
+| `j (j + 1) ≥ 3 / 4` for spin `j ≥ 1/2` | `three_quarters_le_mul` |
+| minimal quantum: every level with `j ≥ 1/2` dominates `4 π √3 γ lp²` | `areaSpectrum_min` |
+| entropy of a cut = logarithm of its puncture count | `punctureEntropy` |
+| `θ(ψ) ≤ arccos(1/C)`: the universal ceiling ≈ 28.30° (declared) | `theta_le_ceiling` |
+| area quanta are counted δ∞ quanta (declared) | `areaQuanta_are_defectQuanta` |
+| the graviton saturates the ceiling (declared) | `graviton_saturates_ceiling` |
+
+The bridges live in `NRS3Rovelli/Bridge.lean` and are **declared physical premises**, in
+the same style as the rest of the series: the repo connects LQG with the NRS/NRS³ results
+of the base repository, it does not prove physics.
+
+## In NRS³
+
+1. **Foam / granularity = dimensional uncertainty.** The granularity of space in LQG —
+"no surface is a tenth of `8 π L_p²`" — is read as the dimensional uncertainty that NRS³
+quantifies with the constant `C_Nava(d)` and the angle `θ(ψ) ∈ [0, π/2]`; numerically
+`θ(4) = 7.34°` against the universal ceiling `arccos(1/C∞) ≈ 28.30°` of the base theorem D48.
+2. **Area quanta ↔ δ∞ quanta.** The discrete LQG spectrum `8 π L_p² √(j (j + 1))`
+(γ = 1) corresponds to counting the δ∞ defect quanta of `nrs3-defect-curvature`: a surface
+in LQG is a cut whose entropy counts its quanta, and the horizon hides them
+(Gauss–Bonnet and Bekenstein–Hawking are declared there).
+3. **Excitation of the field = gravity; the graviton.** In LQG the graviton is the quantum
+excitation of the gravitational field — the quantum Faraday lines of Ch. 6. In NRS³ the
+analogue is the state of maximal localization permitted by the ceiling
+`θ(ψ) ≤ arccos(1/C∞) ≈ 28.30°`: the top of the band `Ϙ(d)` of the base theorems D44/D46.
+The bridge axiom `graviton_saturates_ceiling` declares that such a state exists.
+
+## Build
+
+Lean 4 `v4.34.0`, Mathlib `v4.34.0`, nothing else.
+
+```bash
+lake exe cache get
+lake build
+lake env lean Verification/Axioms.lean   # propext, Classical.choice, Quot.sound + declared bridges
+```
+
+Every file: no `sorry`, lines of at most 100 characters, English headers.
+
+## The mosaic
+
+- [NRS and NRS³ — the base theorem](https://github.com/naype888-cloud/nava-robertson-schrodinger)
+- [NRS³ · Mandelstam–Tamm / Cramér–Rao][nrs3-mt-cr]
+- [NRS³ · Penrose](https://github.com/naype888-cloud/nrs3-penrose)
+- [NRS³ · Pauli–Dirac](https://github.com/naype888-cloud/nrs3-pauli-dirac)
+- [NRS³ · Poincaré](https://github.com/naype888-cloud/nrs3-poincare)
+- [NRS³ · Defect and curvature](https://github.com/naype888-cloud/nrs3-defect-curvature)
+- **[NRS³ · Rovelli — Loop Quantum Gravity][this-repo]**
+  (this one)
+
+[this-repo]: https://github.com/naype888-cloud/nrs3-rovelli-lqg
+[nrs3-mt-cr]: https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao
+
+## License
+
+NRS Noncommercial License 1.0.0, see [`LICENSE`](LICENSE). Author: Eduardo Nava-Hernandez.
