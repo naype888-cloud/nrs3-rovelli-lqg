@@ -45,7 +45,16 @@ the figures use `γ = 1`, `ℓ_P = 1` for the spectrum and the exact closed form
 
 ![NRS angle against its ceiling, and puncture entropy](docs/figures/rovelli_theta_punctures.png)
 
-## In NRS³
+## Scope
+
+What is proved here is mathematics: the LQG area spectrum and puncture counting as stated
+(`AreaSpectrum`, `PunctureEntropy`) and the NRS³ ceiling restated from the base repository
+(`Ceiling`). The NRS³ core is the base repository; it does not depend on this one. The
+readings below that connect LQG with NRS³ — granularity as dimensional uncertainty, the
+graviton at the ceiling — are **proposals**, not results of NRS³: developing them is work for
+quantum information and quantum gravity, not a claim of this series.
+
+## In NRS³ (proposal)
 
 1. **Granularity = dimensional uncertainty.** The granularity of space in LQG is read as the
 dimensional uncertainty of the transport pair `(T_d, P_d)` on `T_d:P_d`, measured by
