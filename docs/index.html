@@ -35,7 +35,8 @@
   .legend { font-size: .8rem; color: var(--ink2); display: flex; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 4px; }
   .sw { display: inline-block; width: 18px; border-top: 2.5px solid; vertical-align: middle; margin-right: 4px; }
   canvas { width: 100%; display: block; }
-  #spec { aspect-ratio: 16 / 10; } #gauge { aspect-ratio: 16 / 10; }
+  #spec { aspect-ratio: 16 / 10; } #gauge { aspect-ratio: 16 / 10; } #lp { aspect-ratio: 16 / 3.6; }
+  .ok { color: var(--blue); font-weight: 650; }
   .readout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
   @media (max-width: 560px) { .readout { grid-template-columns: repeat(2, 1fr); } }
   .stat { background: var(--panel); border: 1px solid var(--grid); border-radius: 8px; padding: 8px 10px; }
@@ -88,6 +89,28 @@
     <div class="stat"><div class="k">distance to the ceiling</div><div class="v" id="rd">–</div></div>
   </div>
 
+  <h2>A link is a puncture</h2>
+  <div class="card">
+    <p class="lead" style="margin:0 0 8px">The puncture entropy is not a second entropy. Cut the path of NRS³ after site
+      <code>c</code>: its <code>M</code> crossing links (blue arcs) are the states one quantum can take, as the
+      <code>2j + 1</code> states of a puncture of spin <code>j</code>. When <code>M = 2j + 1</code> the two counts are
+      the same number. On four sites, the cut after 0 has <code>M = 2</code>: a link is a spin-½ puncture, and under
+      the one Bekenstein–Hawking bridge of the base repository it has the area <code>A(1/2)</code> exactly at
+      <code>γ = log 2 / (π√3)</code>.</p>
+    <div class="controls">
+      <label class="sl">sites n + 1<input id="ln" type="range" min="4" max="14" step="1" value="4"><b id="vln">4</b></label>
+      <label class="sl">cut after c<input id="lc" type="range" min="0" max="2" step="1" value="0"><b id="vlc">0</b></label>
+      <label class="sl">quanta k<input id="lk" type="range" min="1" max="12" step="1" value="3"><b id="vlk">3</b></label>
+    </div>
+    <canvas id="lp" aria-label="The path, the cut and its crossing links"></canvas>
+    <div class="readout" aria-live="polite">
+      <div class="stat"><div class="k">M crossing links ↔ spin j = (M − 1)/2</div><div class="v" id="lm">–</div></div>
+      <div class="stat"><div class="k">S_cut = k log M</div><div class="v" id="lsc">–</div></div>
+      <div class="stat"><div class="k">S_punct = k log(2j + 1)</div><div class="v" id="lsp">–</div></div>
+      <div class="stat"><div class="k">link area a₀δ∞ / A(j) at γ_BH</div><div class="v" id="lar">–</div></div>
+    </div>
+  </div>
+
   <h2>Results</h2>
   <table>
     <tr><th>Statement</th><th>Lean</th></tr>
@@ -97,6 +120,9 @@
     <tr><td><code>n</code> punctures have area <code>≥ n · A(1/2)</code></td><td><code>surfaceArea_ge</code></td></tr>
     <tr><td>entropy of <code>n</code> spin-<code>j</code> punctures <code>= log (2j + 1)ⁿ</code>, additive</td><td><code>punctureEntropy_eq_log_card</code>, <code>punctureEntropy_add</code></td></tr>
     <tr><td><code>S = A / 4ℓ_P²</code> iff <code>γ = log 2 / (π √3)</code></td><td><code>bekensteinHawking_iff_immirzi</code></td></tr>
+    <tr><td><b>a link is a puncture</b>: with <code>M = 2j + 1</code>, the entropy of a cut is the puncture entropy</td><td><code>cutEntropy_eq_punctureEntropy</code></td></tr>
+    <tr><td>on four sites the cut at 0 has <code>M = 2</code>: <code>k</code> links are <code>k</code> spin-½ punctures</td><td><code>numCross_three_zero</code>, <code>cutEntropy_spin_half</code></td></tr>
+    <tr><td>under the base bridge <code>HBekensteinHawking</code> with <code>M = 2</code>, one link has the area <code>A(1/2)</code> at <code>γ = log 2/(π√3)</code></td><td><code>link_area_eq_puncture</code></td></tr>
     <tr><td><code>θ_NRS(4) ≤ θ_NRS(d) &lt; arccos(1/C∞)</code> for <code>d ≥ 4</code></td><td><code>angle_lt_ceiling</code></td></tr>
     <tr><td>the ceiling is the limit and the supremum, never attained</td><td><code>tendsto_angle_ceiling</code>, <code>ceiling_isLUB</code>, <code>ceiling_not_attained</code></td></tr>
   </table>
@@ -237,6 +263,41 @@
     dk = matchMedia("(prefers-color-scheme: dark)").matches;
     r.dataset.theme = (r.dataset.theme || (dk ? "dark" : "light")) === "dark" ? "light" : "dark"; });
   requestAnimationFrame(tick);
+
+  // ---------------- a link is a puncture ----------------
+  (() => {
+    let ln = 3, lc = 0, lk = 3;
+    const cross = (n, c) => { const L = []; for (let a = 0; a <= n; a++) for (let b = 0; b <= n; b++) if (a <= c && c < b && a + 2 <= b) L.push([a, b]); return L; };
+    function drawLP() {
+      const c = document.getElementById("lp"), r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+      c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr);
+      const x = c.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0); const w = r.width, h = r.height;
+      const col = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+      const pad = 22, dx = (w - 2 * pad) / ln, y0 = h - 26, L = cross(ln, lc);
+      for (const [a, b] of L) { const rr = (b - a) * dx / 2; x.strokeStyle = col("--blue"); x.globalAlpha = .55; x.lineWidth = 1.6;
+        x.beginPath(); x.ellipse(pad + a * dx + rr, y0, rr, Math.min(rr * .5, y0 - 10), 0, Math.PI, 2 * Math.PI); x.stroke(); }
+      x.globalAlpha = 1; x.strokeStyle = col("--ink2"); x.lineWidth = 2; x.beginPath(); x.moveTo(pad, y0); x.lineTo(pad + ln * dx, y0); x.stroke();
+      x.strokeStyle = col("--orange"); x.setLineDash([5, 4]); x.lineWidth = 1.4;
+      x.beginPath(); x.moveTo(pad + (lc + .5) * dx, 4); x.lineTo(pad + (lc + .5) * dx, h - 4); x.stroke(); x.setLineDash([]);
+      for (let i = 0; i <= ln; i++) { x.fillStyle = col("--panel"); x.strokeStyle = col("--ink"); x.lineWidth = 1.3;
+        x.beginPath(); x.arc(pad + i * dx, y0, 4.5, 0, 2 * Math.PI); x.fill(); x.stroke();
+        x.fillStyle = col("--muted"); x.font = "10px system-ui"; x.textAlign = "center"; x.fillText(i, pad + i * dx, y0 + 17); }
+      const M = L.length, j = (M - 1) / 2, sc = lk * Math.log(M), sp = lk * Math.log(2 * j + 1);
+      const gBH = Math.log(2) / (Math.PI * Math.sqrt(3)), Aj = 8 * Math.PI * gBH * Math.sqrt(j * (j + 1)), link = 4 * Math.log(M);
+      const half = (v) => Number.isInteger(v) ? `${v}` : `${2 * v}/2`;
+      document.getElementById("lm").textContent = `${M} ↔ j = ${half(j)}`;
+      document.getElementById("lsc").textContent = sc.toFixed(4);
+      document.getElementById("lsp").textContent = sp.toFixed(4);
+      const ratio = M >= 2 ? link / Aj : NaN;
+      document.getElementById("lar").innerHTML = Number.isNaN(ratio) ? "–" : (Math.abs(ratio - 1) < 1e-12 ? '<span class="ok">1 (exact)</span>' : ratio.toFixed(4));
+      document.getElementById("vln").textContent = ln + 1; document.getElementById("vlc").textContent = lc; document.getElementById("vlk").textContent = lk;
+    }
+    const on = (id, f) => document.getElementById(id).addEventListener("input", (e) => { f(+e.target.value); drawLP(); });
+    on("ln", (v) => { ln = v - 1; const cc = document.getElementById("lc"); cc.max = ln - 2; if (lc > ln - 2) { lc = ln - 2; cc.value = lc; } });
+    on("lc", (v) => { lc = v; }); on("lk", (v) => { lk = v; });
+    document.getElementById("theme").addEventListener("click", () => setTimeout(drawLP, 0));
+    window.addEventListener("resize", drawLP); drawLP();
+  })();
 })();
 </script>
 </body>

@@ -30,6 +30,8 @@ is one quantum of area; entropy by counting punctures).
 | `θ_NRS(4) ≤ θ_NRS(d) < arccos(1/C∞)` for `d ≥ 4` | `angle_lt_ceiling` |
 | `θ_NRS(d) → arccos(1/C∞)`; it is the supremum and no `d` attains it | `tendsto_angle_ceiling`, `ceiling_isLUB`, `ceiling_not_attained` |
 
+![A link is a puncture](docs/figures/link_puncture.png)
+
 The puncture entropy is not a second entropy: `LinkPuncture` identifies it with the entropy of
 a cut (`D16g` of the base repository), and there is one Bekenstein–Hawking bridge, the base's.
 The ceiling results are theorems of the base repository (`D37b` NRS angle, `D8` Szegő
