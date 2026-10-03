@@ -8,3 +8,4 @@ module
 public import NRS3Rovelli.AreaSpectrum
 public import NRS3Rovelli.PunctureEntropy
 public import NRS3Rovelli.Ceiling
+public import NRS3Rovelli.LinkPuncture

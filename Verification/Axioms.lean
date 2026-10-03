@@ -23,3 +23,5 @@ import NRS3Rovelli
 #print axioms NRS3Rovelli.ceiling_not_attained
 #print axioms NRS3Rovelli.tendsto_angle_ceiling
 #print axioms NRS3Rovelli.ceiling_isLUB
+#print axioms NRS3Rovelli.cutEntropy_spin_half
+#print axioms NRS3Rovelli.link_area_eq_puncture

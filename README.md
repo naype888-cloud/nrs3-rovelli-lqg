@@ -24,9 +24,14 @@ is one quantum of area; entropy by counting punctures).
 | entropy of `n` spin-`j` punctures `= log (2 j + 1)ⁿ`, additive | `punctureEntropy_eq_log_card`, `punctureEntropy_add` |
 | at spin `1/2`, `S = (log 2 / A(1/2)) · A` | `entropy_proportional_to_area` |
 | `S = A / (4 ℓ_P²)` iff `γ = log 2 / (π √3) ≈ 0.1274` | `bekensteinHawking_iff_immirzi` |
+| **a link is a puncture**: a cut with `M = 2j + 1` crossing links has the entropy of spin-`j` punctures | `cutEntropy_eq_punctureEntropy` |
+| the cut at `0` on four sites has `M = 2`: `k` links are `k` spin-`1/2` punctures | `numCross_three_zero`, `cutEntropy_spin_half` |
+| under the base Bekenstein–Hawking bridge (`HBekensteinHawking`, `M = 2`), one link has the area `A(1/2)` at `γ = log 2 / (π √3)` | `link_area_eq_puncture` |
 | `θ_NRS(4) ≤ θ_NRS(d) < arccos(1/C∞)` for `d ≥ 4` | `angle_lt_ceiling` |
 | `θ_NRS(d) → arccos(1/C∞)`; it is the supremum and no `d` attains it | `tendsto_angle_ceiling`, `ceiling_isLUB`, `ceiling_not_attained` |
 
+The puncture entropy is not a second entropy: `LinkPuncture` identifies it with the entropy of
+a cut (`D16g` of the base repository), and there is one Bekenstein–Hawking bridge, the base's.
 The ceiling results are theorems of the base repository (`D37b` NRS angle, `D8` Szegő
 limit), imported and restated here, not declared. `Verification/Axioms.lean` prints only
 `propext`, `Classical.choice` and `Quot.sound` for every result.
@@ -62,8 +67,9 @@ dimensional uncertainty of the transport pair `(T_d, P_d)` on `T_d:P_d`, measure
 `θ_NRS(4) = 7.43°`, and strictly below `arccos(1/C∞) ≈ 28.30°` for every `d`.
 2. **Area quanta.** Every puncture carries at least the lowest quantum `A(1/2)`, so no surface
 holds a fraction of it, and the entropy is linear in the number of punctures — the same
-shape as the entropy of a cut in `nrs3-defect-curvature`, linear in its δ∞ quanta (a reading;
-this repository does not identify the two counts).
+count as the entropy of a cut in `nrs3-defect-curvature`, linear in its δ∞ quanta: with
+`M = 2j + 1` the two entropies are equal (`cutEntropy_eq_punctureEntropy`), and under one
+Bekenstein–Hawking bridge a link has the area of a spin-`1/2` puncture (`link_area_eq_puncture`).
 3. **The graviton.** The maximally localized excitation has no finite-`d` state at the
 ceiling: `arccos(1/C∞)` is approached as `d → ∞` and never reached (`D37b`, `D8`).
 
