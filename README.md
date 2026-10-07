@@ -133,6 +133,7 @@ is a declared bridge.
 
 [this-repo]: https://github.com/naype888-cloud/nrs3-rovelli-lqg
 [nrs3-mt-cr]: https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao
+- [NRS³ · Dark](https://github.com/naype888-cloud/nrs3-dark)
 
 ## License
 
