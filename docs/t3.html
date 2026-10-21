@@ -84,6 +84,25 @@
       <canvas id="gauge" aria-label="Localization angle gauge"></canvas></div>
   </div>
 
+  <h2>The three rings in 3D: the light sphere and the random walk</h2>
+  <div class="card">
+    <p class="lead" style="margin:0 0 8px">Each ring of T³ is a point inside the unit sphere: its uncertainty four-vector divided by
+      <code>v₀</code>. On the sphere the state is all light; inside, some of it is dark. Press the button: the state of every axis
+      takes small random steps and you see the light decay. Drag to rotate.</p>
+    <div class="controls">
+      <button type="button" id="walk" aria-pressed="false">✦ Random walk (auto)</button>
+      <label class="sl">ring x<input id="sx" type="range" min="3" max="30" step="1" value="3"><b id="vsx">3</b></label>
+      <label class="sl">ring y (z = y + 2)<input id="sy" type="range" min="3" max="30" step="1" value="5"><b id="vsy">5</b></label>
+    </div>
+    <canvas id="sphere" style="aspect-ratio:16/10;touch-action:none" aria-label="Three axis vectors inside the light sphere"></canvas>
+    <div class="readout" aria-live="polite">
+      <div class="stat"><div class="k">x: light β²</div><div class="v" id="wx">–</div></div>
+      <div class="stat"><div class="k">y: light β²</div><div class="v" id="wy">–</div></div>
+      <div class="stat"><div class="k">z: light β²</div><div class="v" id="wz">–</div></div>
+      <div class="stat"><div class="k">steps</div><div class="v" id="wn">0</div></div>
+    </div>
+  </div>
+
   <div class="readout" aria-live="polite">
     <div class="stat"><div class="k">area A(j)</div><div class="v" id="ra">–</div></div>
     <div class="stat"><div class="k">A(j) / A(1/2)</div><div class="v" id="rn">–</div></div>
@@ -250,6 +269,43 @@
     dk = matchMedia("(prefers-color-scheme: dark)").matches;
     r.dataset.theme = (r.dataset.theme || (dk ? "dark" : "light")) === "dark" ? "light" : "dark"; });
   requestAnimationFrame(tick);
+
+
+  // ---------------- 3D: three rings, random walk ----------------
+  (() => {
+    const C = Cone, R = Cone.ring, view = { yaw: -0.6, pitch: 0.5, user: false };
+    let sts = null, trails = [[], [], []], walking = false, n = 0, rng = null;
+    const dims = () => [+$("sx").value, +$("sy").value, +$("sy").value + 2];
+    const fresh = () => dims().map((d, i) => R.state(d, 0, 1 + i, false));
+    const cols = () => ["--blue", "--orange", "--ink2"];
+    function draw() {
+      const { g, w, h } = C.setup($("sphere")), P = C.projector(w, h, view, 0.36, 0);
+      const grid = css("--grid"), muted = css("--muted"), ring = (f) => { const p = []; for (let t = 0; t <= 72; t++) p.push(f(t * Math.PI / 36)); return p; };
+      for (const f of [(a) => [Math.cos(a), Math.sin(a), 0], (a) => [Math.cos(a), 0, Math.sin(a)], (a) => [0, Math.cos(a), Math.sin(a)]]) C.poly(g, P, ring(f), C.mix(css("--orange"), 0.5), 1.2);
+      C.line(g, P, [-1.2, 0, 0], [1.2, 0, 0], grid); C.line(g, P, [0, -1.2, 0], [0, 1.2, 0], grid); C.line(g, P, [0, 0, -1.2], [0, 0, 1.2], grid);
+      C.label(g, P, [1.25, 0, 0], "Re⟪x,y⟫", muted); C.label(g, P, [0, 1.25, 0], "Im⟪x,y⟫", muted); C.label(g, P, [0, 0, 1.25], "ΔVar", muted);
+      (sts || (sts = fresh())).forEach((s, i) => {
+        const a = R.analyse(dims()[i], s), u = [a.v[1] / a.v[0], a.v[2] / a.v[0], a.v[3] / a.v[0]], col = css(cols()[i]);
+        if (trails[i].length > 1) C.poly(g, P, trails[i], C.mix(col, 0.5), 1.4);
+        C.line(g, P, [0, 0, 0], u, col, 2); C.dot(g, P, u, 6, col); C.label(g, P, u, "xyz"[i], css("--ink"), 8, -8, "600 12px system-ui");
+        $("w" + "xyz"[i]).textContent = a.light.toFixed(4);
+      });
+      $("wn").textContent = n; $("vsx").textContent = $("sx").value; $("vsy").textContent = $("sy").value;
+    }
+    function step() {
+      if (!walking) return;
+      sts = sts.map((s) => R.step(s, 0.05, rng)); n++;
+      sts.forEach((s, i) => { const a = R.analyse(dims()[i], s); trails[i].push([a.v[1] / a.v[0], a.v[2] / a.v[0], a.v[3] / a.v[0]]); if (trails[i].length > 120) trails[i].shift(); });
+      draw(); setTimeout(() => requestAnimationFrame(step), 40);
+    }
+    function set(on) { walking = on; $("walk").setAttribute("aria-pressed", on); $("walk").textContent = on ? "❚❚ Stop" : "✦ Random walk (auto)";
+      if (on) { sts = fresh(); trails = [[], [], []]; n = 0; rng = C.rng((Math.random() * 1e9) | 0); step(); } else { sts = null; trails = [[], [], []]; n = 0; draw(); } }
+    $("walk").addEventListener("click", () => set(!walking));
+    ["sx", "sy"].forEach((id) => $(id).addEventListener("input", () => set(false)));
+    C.view3d($("sphere"), view, draw);
+    (function spin() { if (!view.user) { view.yaw += 0.0025; draw(); } requestAnimationFrame(spin); })();
+    $("theme").addEventListener("click", () => setTimeout(draw, 0)); window.addEventListener("resize", draw); draw();
+  })();
 
   // ---------------- the cut of the torus ----------------
   (() => {
