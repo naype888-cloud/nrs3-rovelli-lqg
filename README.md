@@ -7,6 +7,8 @@ parameter, and the NRS angle `θ_NRS(d)` stays strictly below the ceiling
 
 **[▶ Try it: area quanta vs the localization ceiling][pages]**
 
+**[▶ Same on T³: closed rings, 2·dy·dz seam punctures][t3]**
+
 Source text: Carlo Rovelli, *La realidad no es lo que parece* (2017) — Ch. 5 (quantum
 space-time), Ch. 6 (*Cuantos de espacio*: spin networks, discrete area spectrum
 `8 π γ ℓ_P² √(j (j + 1))` with `j ∈ ½ ℕ`), Ch. 10 (black holes: each loop through the horizon
@@ -47,6 +49,7 @@ the figures use `γ = 1`, `ℓ_P = 1` for the spectrum and the exact closed form
 (`D8`) for the angle.
 
 [pages]: https://naype888-cloud.github.io/nrs3-rovelli-lqg/
+[t3]: https://naype888-cloud.github.io/nrs3-rovelli-lqg/t3.html
 
 ![LQG area spectrum of one puncture](docs/figures/rovelli_area_spectrum.png)
 

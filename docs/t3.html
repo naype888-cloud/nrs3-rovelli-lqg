@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NRS³·T³ · Rovelli — area quanta on the three-torus</title>
+<meta name="description" content="The LQG area spectrum is a ladder of isolated levels. On the three-torus every axis is a ring: its angle θ°(d) tends to 45°, the ring limit, from above (it overshoots), and the cut of the torus is 2·dy·dz punctures of spin ½.">
+<style>
+  :root { --bg: #fcfcfb; --panel: #fff; --ink: #0b0b0b; --ink2: #52514e; --muted: #8a8985;
+    --grid: #e4e3df; --blue: #2a78d6; --orange: #eb6834; --soft: rgba(235,104,52,.12); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #111110; --panel: #191918; --ink: #f2f1ee; --ink2: #c4c3bf; --grid: #2c2b29;
+    --blue: #5b9be6; --orange: #f08a5d; --soft: rgba(240,138,93,.16); } }
+  :root[data-theme="dark"] { --bg: #111110; --panel: #191918; --ink: #f2f1ee; --ink2: #c4c3bf;
+    --grid: #2c2b29; --blue: #5b9be6; --orange: #f08a5d; --soft: rgba(240,138,93,.16); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 40px; }
+  h1 { font-size: 1.45rem; margin: 0 0 4px; font-weight: 650; }
+  h2 { font-size: 1.1rem; margin: 26px 0 8px; font-weight: 620; }
+  .lead { color: var(--ink2); margin: 0 0 16px; max-width: 840px; }
+  .theme { float: right; font: inherit; font-size: .8rem; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--grid); background: var(--panel); color: var(--ink); cursor: pointer; }
+  .controls { display: grid; grid-template-columns: auto 1fr 1fr; gap: 10px 18px; align-items: center; margin-bottom: 12px; }
+  @media (max-width: 700px) { .controls { grid-template-columns: 1fr; } }
+  .sl { display: flex; gap: 10px; align-items: center; font-variant-numeric: tabular-nums; }
+  .sl input { flex: 1; min-width: 0; accent-color: var(--blue); } .sl b { min-width: 4.5em; text-align: right; }
+  button { font: inherit; font-size: .9rem; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--grid); background: var(--panel); color: var(--ink); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--grid); border-radius: 10px; padding: 12px; }
+  .card h2 { font-size: .95rem; margin: 0 0 6px; font-weight: 600; color: var(--ink2); }
+  .legend { font-size: .8rem; color: var(--ink2); display: flex; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 4px; }
+  .sw { display: inline-block; width: 18px; border-top: 2.5px solid; vertical-align: middle; margin-right: 4px; }
+  canvas { width: 100%; display: block; }
+  #spec { aspect-ratio: 16 / 10; } #gauge { aspect-ratio: 16 / 10; } #lp { aspect-ratio: 16 / 3.6; }
+  .ok { color: var(--blue); font-weight: 650; }
+  .readout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  @media (max-width: 560px) { .readout { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--panel); border: 1px solid var(--grid); border-radius: 8px; padding: 8px 10px; }
+  .stat .k { font-size: .78rem; color: var(--muted); } .stat .v { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .note { color: var(--ink2); font-size: .9rem; margin-top: 14px; max-width: 880px; }
+  table { border-collapse: collapse; margin: 8px 0; font-size: .92rem; }
+  th, td { border: 1px solid var(--grid); padding: 6px 10px; text-align: left; }
+  th { color: var(--ink2); font-weight: 600; }
+  code { font-size: .88em; } a { color: var(--blue); }
+  img.fig { width: 100%; border: 1px solid var(--grid); border-radius: 10px; margin: 6px 0; }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 28px; }
+</style>
+</head>
+<body>
+<main>
+  <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
+  <h1>NRS³·T³ · Rovelli — area quanta on the three-torus</h1>
+  <p class="lead">Same ladder of areas <code>A(j) = 8 π γ lp² √(j (j + 1))</code>, <code>j ∈ ½ ℕ</code>, now on
+    <b>T³</b>: all three axes are closed rings of <code>d ≥ 3</code> positions. The angle of a ring,
+    <code>θ°(d) = arccos(1/C°(d))</code>, comes from the maximal-current state of the pair
+    (T°, P). It is already <code>26.57°</code> at <code>d = 3</code> (light 4/5, dark 1/5) jumps to
+    <code>49.50°</code> at <code>d = 4</code>, peaks near <code>46.8°</code> around <code>d = 9</code> and comes down to
+    <code>45°</code> in the Szegő limit of the ring (light = dark = ½). Unlike the open axis, the closed one has no ceiling
+    below its limit: the approach is not monotone. The open cube had <code>0</code> at <code>d = 3</code> and the ceiling
+    <code>28.30°</code>; this page is the closed one.
+    The open page stays at <a href="./">index.html</a>.</p>
+
+  <div class="controls">
+    <button type="button" id="play" aria-label="Play">▶</button>
+    <label class="sl">spin j<input id="j" type="range" min="1" max="12" step="1" value="1"><b id="vj">½</b></label>
+    <label class="sl">ring positions d<input id="dd" type="range" min="0" max="1000" step="1" value="81"><b id="vd">4</b></label>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h2>The area spectrum of one puncture (units ℓ_P², γ = 1)</h2>
+      <div class="legend">
+        <span><span class="sw" style="border-color:var(--blue)"></span>area levels A(j)</span>
+        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>lowest level A(1/2) = 4π√3 ℓ_P²</span>
+        <span><span class="sw" style="border-color:var(--ink);border-top-style:dotted"></span>gap: no eigenvalues</span></div>
+      <canvas id="spec" aria-label="LQG area spectrum stem plot"></canvas></div>
+    <div class="card"><h2>θ°(d) of the ring against the ring limit 45°</h2>
+      <div class="legend">
+        <span><span class="sw" style="border-color:var(--blue)"></span>θ°(d), ring of d positions (maximal current)</span>
+        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>ring limit 45° = arccos(1/√2), approached from above, never attained</span></div>
+      <canvas id="gauge" aria-label="Localization angle gauge"></canvas></div>
+  </div>
+
+  <div class="readout" aria-live="polite">
+    <div class="stat"><div class="k">area A(j)</div><div class="v" id="ra">–</div></div>
+    <div class="stat"><div class="k">A(j) / A(1/2)</div><div class="v" id="rn">–</div></div>
+    <div class="stat"><div class="k">θ°(d) = arccos(1/C°(d))</div><div class="v" id="rt">–</div></div>
+    <div class="stat"><div class="k">θ°(d) − 45° (limit)</div><div class="v" id="rd">–</div></div>
+  </div>
+
+  <h2>The cut of the torus is 2·dy·dz punctures</h2>
+  <div class="card">
+    <p class="lead" style="margin:0 0 8px">Cut the ring of the x axis at one place: each of the <code>dy·dz</code> lines
+      crosses the cut twice, because a closed axis has two seams. The <code>2·dy·dz</code> boundary steps are
+      punctures of spin <code>½</code> (two states each), and Bekenstein–Hawking fixes
+      <code>γ = log 2 / (π√3)</code> as on the cube. The horizon of the de Sitter solution of the cut has
+      the area <code>a²·2·dy·dz</code>, with <code>Λ = 3π / (2 ℓ² dy dz log 2)</code>.</p>
+    <div class="controls">
+      <label class="sl">dy<input id="ty" type="range" min="3" max="20" step="1" value="3"><b id="vty">3</b></label>
+      <label class="sl">dz<input id="tz" type="range" min="3" max="20" step="1" value="3"><b id="vtz">3</b></label>
+    </div>
+    <div class="readout" aria-live="polite">
+      <div class="stat"><div class="k">punctures n = 2·dy·dz (spin ½)</div><div class="v" id="tn">–</div></div>
+      <div class="stat"><div class="k">S_cut = n log 2</div><div class="v" id="ts">–</div></div>
+      <div class="stat"><div class="k">area n·A(1/2) at γ_BH, in 4ℓ_P² (= S)</div><div class="v" id="ta">–</div></div>
+      <div class="stat"><div class="k">Λ·ℓ² = 3π/(2 dy dz log 2)</div><div class="v" id="tl">–</div></div>
+    </div>
+  </div>
+
+  <h2>Results</h2>
+  <table>
+    <tr><th>Statement</th><th>Lean</th></tr>
+    <tr><td><code>A(j) = 8 π γ ℓ_P² √(j (j + 1))</code>, Immirzi <code>γ</code> generic</td><td><code>areaSpectrum</code></td></tr>
+    <tr><td>separated levels: <code>0 ≤ j &lt; k</code> gives <code>A(j) &lt; A(k)</code></td><td><code>areaSpectrum_strictMono</code></td></tr>
+    <tr><td>lowest level <code>A(1/2) = 4 π √3 γ ℓ_P²</code>, below every <code>j ≥ 1/2</code></td><td><code>areaSpectrum_half</code>, <code>areaSpectrum_min</code></td></tr>
+    <tr><td><code>n</code> punctures have area <code>≥ n · A(1/2)</code></td><td><code>surfaceArea_ge</code></td></tr>
+    <tr><td>entropy of <code>n</code> spin-<code>j</code> punctures <code>= log (2j + 1)ⁿ</code>, additive</td><td><code>punctureEntropy_eq_log_card</code>, <code>punctureEntropy_add</code></td></tr>
+    <tr><td><code>S = A / 4ℓ_P²</code> iff <code>γ = log 2 / (π √3)</code></td><td><code>bekensteinHawking_iff_immirzi</code></td></tr>
+    <tr><td><b>the boundary steps of the torus are punctures</b>: the cut has the entropy of <code>2·dy·dz</code> spin-½ punctures</td><td><code>TorusSeams.cutEntropy_eq_punctureEntropy</code></td></tr>
+    <tr><td>Bekenstein–Hawking on the torus iff <code>γ = log 2/(π√3)</code></td><td><code>TorusSeams.torus_immirzi_iff</code></td></tr>
+    <tr><td>the horizon of the cut has area <code>a²·2·dy·dz</code>, <code>Λ = 3π/(2ℓ² dy dz log 2)</code></td><td><code>TorusSeams.horizonArea_cutCosmologicalConstant</code>, <code>cutCosmologicalConstant_eq</code></td></tr>
+    <tr><td>ring: light share <code>4/5</code> and dark <code>1/5</code> at <code>d = 3</code>; light = dark = ½ in the limit, <code>C° → √2</code></td><td><code>RingSzego</code>, <code>TorusDark</code> (nrs3-tritoro)</td></tr>
+    <tr><td>open axis, for comparison: <code>θ_NRS(d) &lt; arccos(1/C∞)</code></td><td><code>angle_lt_ceiling</code> (this repo, <a href="./">open page</a>)</td></tr>
+    
+  </table>
+  <p class="note">No axioms: every result depends only on <code>propext</code>,
+    <code>Classical.choice</code> and <code>Quot.sound</code>. The open-axis ceiling results are theorems of the
+    base repository (<code>D37b</code>, <code>D8</code>) and of <code>nrs3-tritoro</code> (ring limit, seams), imported, not declared. The numerical ring angle on this page is computed from the state, not a Lean theorem.</p>
+
+  <h2>Scope</h2>
+  <p class="note">Proved here: the LQG area spectrum and puncture counting as stated, and the NRS³
+    open-axis ceiling restated from the base repository. The NRS³ core is the base repository and does not
+    depend on this page. The readings below — granularity as dimensional uncertainty, the ring limit — are <b>proposals</b>, not results of NRS³: developing them is work for quantum
+    information and quantum gravity.</p>
+
+  <h2>In NRS³·T³ (proposal)</h2>
+  <p class="note">1. <b>Granularity = dimensional uncertainty of a ring</b>: <code>θ°(d)</code> is positive from
+    <code>d = 3</code> (26.57°), above 45° from <code>d = 4</code>, and tends to <code>45°</code>; in the open cube the first two sizes were flat at 0.<br>
+    2. <b>Area quanta</b>: the seam punctures carry the lowest quantum <code>A(1/2)</code> each; the
+    cut has <code>2·dy·dz</code> of them, so entropy and area are proportional with the one Immirzi value.<br>
+    3. <b>The limit</b>: the 45° of the ring limit is half light, half dark; no finite ring attains it, and rings of 4 to 60 positions sit above it (46–49.5°), so there the angle is not a bound.</p>
+
+  <p class="note">Source text: Carlo Rovelli, <i>La realidad no es lo que parece</i> (2017), Ch. 5
+    (quantum space-time), Ch. 6 (area and volume quanta, spin networks) and Ch. 10 (black-hole
+    entropy by counting punctures).</p>
+
+  <footer>NRS Noncommercial License 1.0.0 · Author: Eduardo Nava-Hernandez ·
+    <a href="https://github.com/naype888-cloud/nrs3-rovelli-lqg">github.com/naype888-cloud/nrs3-rovelli-lqg</a></footer>
+</main>
+<script src="https://naype888-cloud.github.io/nrs3-uncertainty-cone/cone-core.js?v=20261020d"></script>
+<script src="https://naype888-cloud.github.io/nrs3-uncertainty-cone/cone-t3.js?v=20261020d"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const deg = (x) => x * 180 / Math.PI;
+  const CEIL = 45; // arccos(1 / C°_infty), C°_infty = sqrt 2: the limit of the ring, not a bound
+  // ring angle: C°(d) from the maximal-current state of (T°_d, P_d), cone-t3.js
+  const thetaNRS = (d) => deg(Math.acos(Math.min(1, 1 / Cone.ring.CNava(d))));
+  const dOf = (u) => Math.round(3 + 57 * u / 1000); // slider 0..1000 -> d = 3..60
+  const A = (j) => 8 * Math.PI * Math.sqrt(j * (j + 1)); // units lp^2, gamma = 1
+  const JMIN = A(0.5), JMAX = 6.5;
+  let js = 1, du = 81, playing = false, last = 0, acc = 0;
+
+  function setup(c) {
+    const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr);
+    const g = c.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); return [g, r.width, r.height];
+  }
+
+  function drawSpec() {
+    const [g, w, h] = setup($("spec")), L = 52, R = 12, T = 14, B = 34, W = w - L - R, H = h - T - B;
+    const X = (j) => L + j / JMAX * W, Y = (a) => T + (1 - a / A(JMAX) / 1.05) * H;
+    g.strokeStyle = css("--grid"); g.fillStyle = css("--muted"); g.font = "12px system-ui, sans-serif";
+    for (let a = 0; a <= A(JMAX); a += 50) { g.beginPath(); g.moveTo(L, Y(a)); g.lineTo(L + W, Y(a)); g.stroke();
+      g.fillText(a.toFixed(0), 14, Y(a) + 4); }
+    for (let j = 0.5; j <= JMAX; j += 1) { g.beginPath(); g.moveTo(X(j), T); g.lineTo(X(j), T + H); g.stroke();
+      g.fillText(j.toFixed(1), X(j) - 8, T + H + 18); }
+    // forbidden band below the minimal quantum
+    g.fillStyle = css("--soft"); g.fillRect(L, Y(JMIN), W, T + H - Y(JMIN));
+    g.strokeStyle = css("--orange"); g.lineWidth = 2; g.setLineDash([7, 5]); g.beginPath();
+    g.moveTo(L, Y(JMIN)); g.lineTo(L + W, Y(JMIN)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css("--orange"); g.fillText("lowest level A(1/2) = 4π√3 ℓ_P²", L + 6, Y(JMIN) - 6);
+    // levels: isolated stems; the gap between consecutive levels is dotted
+    const sel = js / 2;
+    for (let j = 0.5; j <= 6; j += 0.5) {
+      const on = Math.abs(j - sel) < 1e-9;
+      if (j < 6) { g.strokeStyle = css("--ink"); g.lineWidth = 1; g.setLineDash([2, 3]);
+        g.beginPath(); g.moveTo(X(j), Y(A(j))); g.lineTo(X(j + 0.5), Y(A(j))); g.stroke(); g.setLineDash([]); }
+      g.strokeStyle = css("--blue"); g.lineWidth = on ? 3 : 1.6;
+      g.beginPath(); g.moveTo(X(j), Y(0)); g.lineTo(X(j), Y(A(j))); g.stroke();
+      g.fillStyle = on ? css("--orange") : css("--blue");
+      g.beginPath(); g.arc(X(j), Y(A(j)), on ? 7 : 4.5, 0, 2 * Math.PI); g.fill();
+    }
+    g.fillStyle = css("--ink2"); g.font = "12.5px system-ui, sans-serif";
+    g.fillText("no surface below the first rung", L + 6, T + H - 10);
+  }
+
+  function drawGauge() {
+    const [g, w, h] = setup($("gauge")), cx = w / 2, cy = h * 0.78, S = Math.min(w / 2.3, h * 0.72);
+    const a0 = Math.PI, a1 = 0; // half disc, 0..90 deg left to right
+    const P = (deg) => { const a = a0 + (deg / 90) * (a1 - a0);
+      return [cx + S * Math.cos(a), cy - S * Math.sin(a)]; };
+    // arc ticks
+    g.strokeStyle = css("--grid"); g.lineWidth = 1; g.font = "11px system-ui, sans-serif";
+    for (let d = 0; d <= 90; d += 15) { const p = P(d), q = P(d);
+      g.beginPath(); g.moveTo(cx + (p[0] - cx) * 0.92, cy + (p[1] - cy) * 0.92);
+      g.lineTo(q[0], q[1]); g.stroke();
+      g.fillStyle = css("--muted"); g.fillText(d + "°", cx + (p[0] - cx) * 1.08 - 10, cy + (p[1] - cy) * 1.08 + 4); }
+    // ceiling
+    g.strokeStyle = css("--orange"); g.lineWidth = 2; g.setLineDash([7, 5]);
+    g.beginPath(); g.moveTo(cx, cy); const pc = P(CEIL); g.lineTo(pc[0], pc[1]); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css("--orange"); g.fillText("ring limit 45°", Math.max(4, pc[0] - 96), pc[1] - 8);
+    // the axis with d sites
+    const dd = dOf(du), th = thetaNRS(dd), p = P(th);
+    g.strokeStyle = css("--blue"); g.lineWidth = 3; g.beginPath(); g.moveTo(cx, cy); g.lineTo(p[0], p[1]); g.stroke();
+    g.fillStyle = css("--blue"); g.beginPath(); g.arc(p[0], p[1], 6, 0, 2 * Math.PI); g.fill();
+    g.fillStyle = css("--ink2"); g.textAlign = "center"; g.fillText("θ°(" + dd + ") = " + th.toFixed(3) + "°", cx, cy + 20);
+    g.textAlign = "start";
+  }
+
+  function update() {
+    drawSpec(); drawGauge();
+    const j = js / 2, a = A(j);
+    const dd = dOf(du), th = thetaNRS(dd);
+    $("ra").textContent = a.toFixed(2) + " ℓ_P²";
+    $("rn").textContent = (a / JMIN).toFixed(3);
+    $("rt").textContent = th.toFixed(3) + "°";
+    $("rd").textContent = (th - CEIL >= 0 ? "+" : "") + (th - CEIL).toFixed(3) + "°";
+    $("vd").textContent = dd;
+    $("vj").textContent = (j % 1 === 0) ? j.toFixed(0) : (j < 1 ? "" : Math.floor(j)) + "½";
+  }
+
+  function tick(ts) {
+    const dt = last ? Math.min(.05, (ts - last) / 1000) : 0; last = ts;
+    if (playing) { du = (du + dt * 120) % 1001; $("dd").value = du; acc += dt;
+      if (acc > 0.7) { acc = 0; js = js % 12 + 1; $("j").value = js; } }
+    update(); requestAnimationFrame(tick);
+  }
+
+  $("j").addEventListener("input", (e) => { js = +e.target.value; });
+  $("dd").addEventListener("input", (e) => { du = +e.target.value; });
+  $("play").addEventListener("click", (e) => { playing = !playing;
+    e.target.textContent = playing ? "❚❚" : "▶";
+    e.target.setAttribute("aria-label", playing ? "Pause" : "Play"); });
+  $("theme").addEventListener("click", () => { const r = document.documentElement,
+    dk = matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme = (r.dataset.theme || (dk ? "dark" : "light")) === "dark" ? "light" : "dark"; });
+  requestAnimationFrame(tick);
+
+  // ---------------- the cut of the torus ----------------
+  (() => {
+    const ids = ["ty", "tz"], F = () => {
+      const dy = +$("ty").value, dz = +$("tz").value, n = 2 * dy * dz, S = n * Math.log(2);
+      const gBH = Math.log(2) / (Math.PI * Math.sqrt(3)), area = n * 4 * Math.PI * Math.sqrt(3) * gBH; // lp = 1
+      $("vty").textContent = dy; $("vtz").textContent = dz;
+      $("tn").textContent = n; $("ts").textContent = S.toFixed(4);
+      $("ta").textContent = (area / 4).toFixed(4) + (Math.abs(area / 4 - S) < 1e-9 ? " ✓" : "");
+      $("tl").textContent = (3 * Math.PI / (2 * dy * dz * Math.log(2))).toFixed(4);
+    };
+    ids.forEach((i) => $(i).addEventListener("input", F)); F();
+  })();
+})();
+</script>
+</body>
+</html>
