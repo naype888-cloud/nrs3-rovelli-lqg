@@ -8,22 +8,22 @@ module
 public import NavaRobertsonIndependent.Mathematics.D37b_NRSAngle
 
 /-!
-# Granularity as dimensional uncertainty: the NRS³ angle and its ceiling
+# Granularity as dimensional uncertainty: the RS^N³ angle and its ceiling
 
-In NRS³ the granularity that LQG finds in space (Chapter 6 of Rovelli) is the dimensional
-uncertainty of the transport pair `(T_d, P_d)` on `T_d:P_d`, measured by the NRS angle
-`θ_NRS(d) = arccos (1 / C_Nava(d))` of the base repository (`D37b`). Everything here is a
+In RS^N³ the granularity that LQG finds in space (Chapter 6 of Rovelli) is the dimensional
+uncertainty of the transport pair `(T_d, P_d)` on `T_d:P_d`, measured by the RS^N angle
+`θ_NRS(d) = arccos (1 / C_N(d))` of the base repository (`D37b`). Everything here is a
 theorem of the base repository, restated; nothing is declared.
 
 * `angleNRS_four` (base): the floor `θ_NRS(4) = arccos (1 / √((99 − 42√5)/5)) ≈ 7.43°`.
-* `angle_lt_ceiling` : `θ_NRS(d) < arccos (1 / C_∞) ≈ 28.30°` for every `d ≥ 4`.
+* `angle_lt_ceiling` : `θ_NRS(d) < arccos (1 / C_N^∞) ≈ 28.30°` for every `d ≥ 4`.
 * `ceiling_not_attained` : no `d` reaches the ceiling.
-* `tendsto_angle_ceiling` : `θ_NRS(d) → arccos (1 / C_∞)` (Szegő limit, `D8`).
+* `tendsto_angle_ceiling` : `θ_NRS(d) → arccos (1 / C_N^∞)` (Szegő limit, `D8`).
 * `ceiling_isLUB` : the ceiling is the least upper bound of the angles of every `d ≥ 4`.
 
-**Reading (a proposal, not a theorem, outside the NRS³ core).** The ceiling is a limit,
+**Reading (a proposal, not a theorem, outside the RS^N³ core).** The ceiling is a limit,
 never a state: the maximally localized excitation that LQG calls the graviton has no finite-`d`
-realization at `arccos (1 / C_∞)`; every axis stays strictly below it.
+realization at `arccos (1 / C_N^∞)`; every axis stays strictly below it.
 -/
 
 @[expose] public section
@@ -32,10 +32,10 @@ namespace NRS3Rovelli
 
 open Real Filter Topology NRSAngle Gnomon
 
-/-- The universal ceiling `arccos (1 / C_∞)`, with `C_∞ = √(π² / 3 − 2)`. -/
+/-- The universal ceiling `arccos (1 / C_N^∞)`, with `C_N^∞ = √(π² / 3 − 2)`. -/
 noncomputable def ceiling : ℝ := arccos (1 / CoherenceConstantInf)
 
-/-- **The ceiling bounds every axis.** `θ_NRS(4) ≤ θ_NRS(d) < arccos (1 / C_∞)` for `d ≥ 4`. -/
+/-- **The ceiling bounds every axis.** `θ_NRS(4) ≤ θ_NRS(d) < arccos (1 / C_N^∞)` for `d ≥ 4`. -/
 theorem angle_lt_ceiling {d : ℕ} (hd : 4 ≤ d) :
     angleNRS 4 ≤ angleNRS d ∧ angleNRS d < ceiling :=
   ⟨(angle_floor hd).2.1, angleNRS_lt_limit hd⟩
@@ -44,7 +44,7 @@ theorem angle_lt_ceiling {d : ℕ} (hd : 4 ≤ d) :
 theorem ceiling_not_attained {d : ℕ} (hd : 4 ≤ d) : angleNRS d ≠ ceiling :=
   (angleNRS_lt_limit hd).ne
 
-/-- **The ceiling is the limit.** `θ_NRS(d) → arccos (1 / C_∞)` as `d → ∞`. -/
+/-- **The ceiling is the limit.** `θ_NRS(d) → arccos (1 / C_N^∞)` as `d → ∞`. -/
 theorem tendsto_angle_ceiling : Tendsto angleNRS atTop (𝓝 ceiling) := by
   have hC : Tendsto (fun d => arccos (1 / CoherenceConstant d)) atTop (𝓝 ceiling) := by
     have h := (tendsto_CoherenceConstant.inv₀ NRSAngle.CoherenceConstantInf_pos.ne').const_mul 1

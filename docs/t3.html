@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NRS³·T³ · Rovelli — area quanta on the three-torus</title>
+<title>RS^N³·T³ · Rovelli — area quanta on the three-torus</title>
 <meta name="description" content="The LQG area spectrum is a ladder of isolated levels. On the three-torus every axis is a ring: its angle θ°(d) tends to 45°, the ring limit, from above (it overshoots), and the cut of the torus is 2·dy·dz punctures of spin ½.">
 <style>
   :root { --bg: #fcfcfb; --panel: #fff; --ink: #0b0b0b; --ink2: #52514e; --muted: #8a8985;
@@ -53,7 +53,7 @@
 <body>
 <main>
   <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
-  <h1>NRS³·T³ · Rovelli — area quanta on the three-torus</h1>
+  <h1>RS^N³·T³ · Rovelli — area quanta on the three-torus</h1>
   <p class="lead">Same ladder of areas <code>A(j) = 8 π γ lp² √(j (j + 1))</code>, <code>j ∈ ½ ℕ</code>, now on
     <b>T³</b>: all three axes are closed rings of <code>d ≥ 3</code> positions. The angle of a ring,
     <code>θ°(d) = arccos(1/C°(d))</code>, comes from the maximal-current state of the pair
@@ -142,7 +142,7 @@
     <tr><td>Bekenstein–Hawking on the torus iff <code>γ = log 2/(π√3)</code></td><td><code>TorusSeams.torus_immirzi_iff</code></td></tr>
     <tr><td>the horizon of the cut has area <code>a²·2·dy·dz</code>, <code>Λ = 3π/(2ℓ² dy dz log 2)</code></td><td><code>TorusSeams.horizonArea_cutCosmologicalConstant</code>, <code>cutCosmologicalConstant_eq</code></td></tr>
     <tr><td>ring: light share <code>4/5</code> and dark <code>1/5</code> at <code>d = 3</code>; light = dark = ½ in the limit, <code>C° → √2</code></td><td><code>RingSzego</code>, <code>TorusDark</code> (nrs3-tritoro)</td></tr>
-    <tr><td>open axis, for comparison: <code>θ_NRS(d) &lt; arccos(1/C∞)</code></td><td><code>angle_lt_ceiling</code> (this repo, <a href="./">open page</a>)</td></tr>
+    <tr><td>open axis, for comparison: <code>θ_NRS(d) &lt; arccos(1/C_N^∞)</code></td><td><code>angle_lt_ceiling</code> (this repo, <a href="./">open page</a>)</td></tr>
     
   </table>
   <p class="note">No axioms: every result depends only on <code>propext</code>,
@@ -150,12 +150,12 @@
     base repository (<code>D37b</code>, <code>D8</code>) and of <code>nrs3-tritoro</code> (ring limit, seams), imported, not declared. The numerical ring angle on this page is computed from the state, not a Lean theorem.</p>
 
   <h2>Scope</h2>
-  <p class="note">Proved here: the LQG area spectrum and puncture counting as stated, and the NRS³
-    open-axis ceiling restated from the base repository. The NRS³ core is the base repository and does not
-    depend on this page. The readings below — granularity as dimensional uncertainty, the ring limit — are <b>proposals</b>, not results of NRS³: developing them is work for quantum
+  <p class="note">Proved here: the LQG area spectrum and puncture counting as stated, and the RS^N³
+    open-axis ceiling restated from the base repository. The RS^N³ core is the base repository and does not
+    depend on this page. The readings below — granularity as dimensional uncertainty, the ring limit — are <b>proposals</b>, not results of RS^N³: developing them is work for quantum
     information and quantum gravity.</p>
 
-  <h2>In NRS³·T³ (proposal)</h2>
+  <h2>In RS^N³·T³ (proposal)</h2>
   <p class="note">1. <b>Granularity = dimensional uncertainty of a ring</b>: <code>θ°(d)</code> is positive from
     <code>d = 3</code> (26.57°), above 45° from <code>d = 4</code>, and tends to <code>45°</code>; in the open cube the first two sizes were flat at 0.<br>
     2. <b>Area quanta</b>: the seam punctures carry the lowest quantum <code>A(1/2)</code> each; the

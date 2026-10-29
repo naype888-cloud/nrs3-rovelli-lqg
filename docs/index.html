@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NRS³ · Rovelli — area quanta and the localization ceiling</title>
-<meta name="description" content="The LQG area spectrum 8πγ lp²√(j(j+1)) is a ladder of isolated levels — no surface below one quantum. In NRS³ the localization angle θ(ψ) is capped by arccos(1/C∞) ≈ 28.30°; the ceiling is a limit no axis reaches. Horizon entropy by counting punctures fixes the Immirzi parameter.">
+<title>RS^N³ · Rovelli — area quanta and the localization ceiling</title>
+<meta name="description" content="The LQG area spectrum 8πγ lp²√(j(j+1)) is a ladder of isolated levels — no surface below one quantum. In RS^N³ the localization angle θ(ψ) is capped by arccos(1/C_N^∞) ≈ 28.30°; the ceiling is a limit no axis reaches. Horizon entropy by counting punctures fixes the Immirzi parameter.">
 <style>
   :root { --bg: #fcfcfb; --panel: #fff; --ink: #0b0b0b; --ink2: #52514e; --muted: #8a8985;
     --grid: #e4e3df; --blue: #2a78d6; --orange: #eb6834; --soft: rgba(235,104,52,.12); }
@@ -54,14 +54,14 @@
 <main>
   <p style="margin:0 0 6px;font-size:.85rem"><a href="t3.html">→ the same on T³ (closed rings)</a></p>
   <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
-  <h1>NRS³ · Rovelli — area quanta and the localization ceiling</h1>
+  <h1>RS^N³ · Rovelli — area quanta and the localization ceiling</h1>
   <p class="lead">In loop quantum gravity (Rovelli, <i>La realidad no es lo que parece</i>, Ch. 6)
     a surface can only have area <code>A(j) = 8 π γ lp² √(j (j + 1))</code> with
     <code>j ∈ ½ ℕ</code>: one puncture gives a ladder of separated levels, and no surface carries
-    a fraction of the lowest one. In NRS³ this granularity is dimensional uncertainty: the NRS
-    angle <code>θ_NRS(d) = arccos(1/C_Nava(d))</code> of an axis with <code>d</code> sites is
+    a fraction of the lowest one. In RS^N³ this granularity is dimensional uncertainty: the RS^N
+    angle <code>θ_NRS(d) = arccos(1/C_N(d))</code> of an axis with <code>d</code> sites is
     <code>0</code> for <code>d = 2, 3</code>, <code>7.43°</code> at <code>d = 4</code>, and grows toward
-    <code>arccos(1/C∞) ≈ 28.30°</code> without ever reaching it.</p>
+    <code>arccos(1/C_N^∞) ≈ 28.30°</code> without ever reaching it.</p>
 
   <div class="controls">
     <button type="button" id="play" aria-label="Play">▶</button>
@@ -76,10 +76,10 @@
         <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>lowest level A(1/2) = 4π√3 ℓ_P²</span>
         <span><span class="sw" style="border-color:var(--ink);border-top-style:dotted"></span>gap: no eigenvalues</span></div>
       <canvas id="spec" aria-label="LQG area spectrum stem plot"></canvas></div>
-    <div class="card"><h2>θ_NRS(d) against the NRS³ ceiling</h2>
+    <div class="card"><h2>θ_NRS(d) against the RS^N³ ceiling</h2>
       <div class="legend">
         <span><span class="sw" style="border-color:var(--blue)"></span>θ_NRS(d), exact (D37b)</span>
-        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>ceiling arccos(1/C∞) ≈ 28.30°: limit, never attained</span></div>
+        <span><span class="sw" style="border-color:var(--orange);border-top-style:dashed"></span>ceiling arccos(1/C_N^∞) ≈ 28.30°: limit, never attained</span></div>
       <canvas id="gauge" aria-label="Localization angle gauge"></canvas></div>
   </div>
 
@@ -92,7 +92,7 @@
 
   <h2>A link is a puncture</h2>
   <div class="card">
-    <p class="lead" style="margin:0 0 8px">The puncture entropy is not a second entropy. Cut the path of NRS³ after site
+    <p class="lead" style="margin:0 0 8px">The puncture entropy is not a second entropy. Cut the path of RS^N³ after site
       <code>c</code>: its <code>M</code> crossing links (blue arcs) are the states one quantum can take, as the
       <code>2j + 1</code> states of a puncture of spin <code>j</code>. When <code>M = 2j + 1</code> the two counts are
       the same number. On four sites, the cut after 0 has <code>M = 2</code>: a link is a spin-½ puncture, and under
@@ -124,7 +124,7 @@
     <tr><td><b>a link is a puncture</b>: with <code>M = 2j + 1</code>, the entropy of a cut is the puncture entropy</td><td><code>cutEntropy_eq_punctureEntropy</code></td></tr>
     <tr><td>on four sites the cut at 0 has <code>M = 2</code>: <code>k</code> links are <code>k</code> spin-½ punctures</td><td><code>numCross_three_zero</code>, <code>cutEntropy_spin_half</code></td></tr>
     <tr><td>under the base bridge <code>HBekensteinHawking</code> with <code>M = 2</code>, one link has the area <code>A(1/2)</code> at <code>γ = log 2/(π√3)</code></td><td><code>link_area_eq_puncture</code></td></tr>
-    <tr><td><code>θ_NRS(4) ≤ θ_NRS(d) &lt; arccos(1/C∞)</code> for <code>d ≥ 4</code></td><td><code>angle_lt_ceiling</code></td></tr>
+    <tr><td><code>θ_NRS(4) ≤ θ_NRS(d) &lt; arccos(1/C_N^∞)</code> for <code>d ≥ 4</code></td><td><code>angle_lt_ceiling</code></td></tr>
     <tr><td>the ceiling is the limit and the supremum, never attained</td><td><code>tendsto_angle_ceiling</code>, <code>ceiling_isLUB</code>, <code>ceiling_not_attained</code></td></tr>
   </table>
   <p class="note">No axioms: every result depends only on <code>propext</code>,
@@ -132,26 +132,26 @@
     base repository (<code>D37b</code>, <code>D8</code>), imported, not declared.</p>
 
   <h2>Scope</h2>
-  <p class="note">Proved here: the LQG area spectrum and puncture counting as stated, and the NRS³
-    ceiling restated from the base repository. The NRS³ core is the base repository and does not
+  <p class="note">Proved here: the LQG area spectrum and puncture counting as stated, and the RS^N³
+    ceiling restated from the base repository. The RS^N³ core is the base repository and does not
     depend on this page. The readings below — granularity as dimensional uncertainty, the graviton
-    at the ceiling — are <b>proposals</b>, not results of NRS³: developing them is work for quantum
+    at the ceiling — are <b>proposals</b>, not results of RS^N³: developing them is work for quantum
     information and quantum gravity.</p>
 
-  <h2>In NRS³ (proposal)</h2>
+  <h2>In RS^N³ (proposal)</h2>
   <p class="note">1. <b>Granularity = dimensional uncertainty</b>: the granularity of quantum
     space is read as the dimensional uncertainty of <code>(T_d, P_d)</code>, measured by
     <code>θ_NRS(d)</code>: <code>0</code> at <code>d = 2, 3</code>, <code>7.43°</code> at
-    <code>d = 4</code>, strictly below <code>arccos(1/C∞) ≈ 28.30°</code> for every <code>d</code>.<br>
+    <code>d = 4</code>, strictly below <code>arccos(1/C_N^∞) ≈ 28.30°</code> for every <code>d</code>.<br>
     2. <b>Area quanta</b>: each puncture carries at least one lowest quantum <code>A(1/2)</code>; the
     entropy is linear in the number of punctures, as the entropy of a cut in
     <code>nrs3-defect-curvature</code> is linear in its δ∞ quanta (a reading, not a theorem here).<br>
     3. <b>The graviton</b>: the maximally localized excitation has no finite-<code>d</code> state at the
-    ceiling; <code>arccos(1/C∞)</code> is a limit, approached as <code>d → ∞</code> and never reached.</p>
+    ceiling; <code>arccos(1/C_N^∞)</code> is a limit, approached as <code>d → ∞</code> and never reached.</p>
 
   <img class="fig" src="figures/rovelli_area_spectrum.png" alt="LQG area spectrum: isolated levels">
   <img class="fig" src="figures/rovelli_theta_punctures.png"
-       alt="NRS³ theta ceiling and puncture-counting entropy">
+       alt="RS^N³ theta ceiling and puncture-counting entropy">
 
   <p class="note">Source text: Carlo Rovelli, <i>La realidad no es lo que parece</i> (2017), Ch. 5
     (quantum space-time), Ch. 6 (area and volume quanta, spin networks) and Ch. 10 (black-hole
@@ -166,7 +166,7 @@
   const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const deg = (x) => x * 180 / Math.PI;
   const CEIL = deg(Math.acos(1 / Math.sqrt(Math.PI ** 2 / 3 - 2))); // arccos(1 / C_infty)
-  // theta_NRS(d) = arccos(1 / C_Nava(d)), C_Nava(d)^2 in closed form (D8_Szego)
+  // theta_NRS(d) = arccos(1 / C_N(d)), C_N(d)^2 in closed form (D8_Szego)
   const thetaNRS = (d) => { const n = d + 1, t = Math.PI / n;
     const c2 = 2 * (d - 1) / (n * Math.cos(t) ** 2) * (((n * n + 2) / 6) * Math.sin(t) ** 2 - 1);
     return deg(Math.acos(Math.min(1, 1 / Math.sqrt(c2)))); };
