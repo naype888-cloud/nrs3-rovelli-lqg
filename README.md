@@ -10,7 +10,6 @@
 [![Mathlib](https://img.shields.io/badge/Mathlib-vérifié-2ea44f.svg?style=flat-square)](https://github.com/leanprover-community/mathlib4)
 [![Kernel Status](https://img.shields.io/badge/Kernel-0%20sorry%20%7C%20ZFC-brightgreen.svg?style=flat-square)]()
 [![Simulateur Ouvert](https://img.shields.io/badge/Simulateur-Espace_Continu-00e5ff.svg?style=for-the-badge&logo=three.js)](https://naype888-cloud.github.io/nrs3-rovelli-lqg/)
-[![Simulateur T³](https://img.shields.io/badge/Simulateur-Trois_Tore_T³-8a2be2.svg?style=for-the-badge)](https://naype888-cloud.github.io/nrs3-rovelli-lqg/t3.html)
 
 </div>
 
@@ -25,66 +24,90 @@
 > <img src="assets/plaque_rovelli_lqg_protagoniste.png" alt="Plaque Rovelli LQG protagoniste" width="860">
 > </div>
 >
-> **1 · Espace continu ℝ³ et Minkowski ℝ³ × S¹ avec fibre d'échelle a.**
-> L'espace physique n'est pas un treillis rigide ni une grille prédécoupée : c'est l'espace
-> euclidien ouvert et continu ℝ³. Ce qui est quantifié est la résolution d du générateur
-> de transport métrique `(T_d, P_d)`. En dimension spatiale pure (d ≤ 3), `defectGram = 0`
-> (phase luminale sans masse, dτ = 0). Le parcours de la fibre temporelle propre dτ > 0
-> active la 4ᵉ dimension (d = 4), déclenchant les matrices de Dirac et le défaut de Szegő
-> `C_M(4) > 0`. La positivité de l'espace de Hilbert garantit qu'il n'existe aucun défaut négatif
-> (flèche causale stricte).
+> #### ⚡ L'ÉQUATION PRINCIPALE QUI DÉMONTRE LE THÉORÈME (EN PREMIER LIEU)
 >
-> **2 · Le quantum d'aire LQG coïncide avec l'aire de la fibre de Minkowski.**
-> Sous le pont canonique de Bekenstein–Hawking, l'aire de la fibre temporelle `a² = 4 ℓ_P² log 2`
-> est identiquement égale au niveau minimal du spectre d'aire de Rovelli `A(1/2) = 4 π √3 γ ℓ_P²`
-> si et seulement si le paramètre d'Immirzi prend la valeur exacte `γ = log 2 / (π √3) ≈ 0.1274`
-> (`immirzi_bekensteinHawking_iff`, `minkowski_fiber_area_eq_lqg_quantum`).
+> L'identité exacte démontrée formellement en Lean 4 relie le quantum fondamental de Rovelli
+> en gravitation quantique à boucles à l'aire de la fibre temporelle propre de Minkowski :
 >
-> **3 · Un lien est une piqûre.**
-> Chaque lien traversant une coupure de transport transverse agit comme une piqûre de spin 1/2.
-> Sur une tranche transverse de ℝ³ échantillonnée avec dy · dz fibres et k quanta, l'entropie
-> totale suit la loi d'aire `S = (dy · dz · k) log 2` (`punctureEntropyXYZ_eq_log`) et fixe
-> la constante cosmologique strictement positive `Λ = 3π / (ℓ² S) > 0`
-> (`cosmologicalConstantXYZ_pos`).
+> ```
+> A(1/2) = 4 π √3 γ ℓ_P² = a² = 4 ℓ_P² log 2   ⟺   γ = log 2 / (π √3) ≈ 0.1274
+> ```
 >
-> **4 · Plafond de localisation universel.**
-> L'angle RS^N `θ_NRS(d) = arccos(1/C_N(d))` croît avec la dimension mais reste strictement
-> inférieur à la borne asymptotique `arccos(1/C_N^∞) ≈ 28.30°`, qui est une borne supérieure
-> stricte jamais atteinte par aucun état fini (`angle_lt_ceiling`, `ceiling_not_attained`) :
-> l'excitation maximale que la LQG appelle le graviton n'a pas d'état physique au plafond.
+> L'aire minimale de surface n'est pas une grille géométrique rigide : c'est l'aire
+> de la fibre temporelle propre `a²` sur la variété de Minkowski `ℝ³ × S¹`.
+>
+> #### 🔗 LES ÉQUATIONS NÉCESSAIRES POUR Y PARVENIR (EN SECOND LIEU)
+>
+> **1 · Espace continu infini ℝ³ et Minkowski ℝ³ × S¹ avec fibre temporelle d'échelle a.**  
+> L'espace physique tridimensionnel est l'espace euclidien continu ouvert ℝ³.
+> La 4ᵉ dimension est la fibre temporelle propre sur S¹ à l'échelle du générateur `a` :
+> * Phase spatiale pure 3D (`d ≤ 3`) : `defectGram(d) = 0`, phase luminale sans masse (`dτ = 0`).
+> * Parcours du temps propre (`d = 4`, `dτ > 0`) : active les matrices de Clifford et le défaut
+>   irréductible de Szegő `C_M(4) = (94 − 42√5)/5 ≈ 0.017029 > 0`.
+> * Positivité hilbertienne : `⟨ψ|ψ⟩ ≥ 0 ⟹ defectGram(d) ≥ 0` (flèche causale stricte).
+>
+> **2 · Limite opérationnelle à l'échelle de Planck ℓ_P (pas de treillis spatial rigide).**  
+> Ce qui est quantifié est la résolution `d` du générateur de transport métrique `(T_d, P_d)`
+> sur les trois axes continus indépendants : `ℋ_{d³} = ℋ_d^{(x)} ⊗ ℋ_d^{(y)} ⊗ ℋ_d^{(z)}`.
+> La longueur de Planck `ℓ_P` pose la limite opérationnelle inférieure de résolution :
+> * Nombre minimal de piqûres opérationnelles : `1 ≤ punctureCountXYZ dy dz k`
+>   (`operational_punctureCount_ge_one`).
+> * Borne inférieure d'aire opérationnelle : `a² ≤ surfaceAreaXYZ lp γ_BH dy dz k`
+>   (`operational_area_ge_planck_quantum`).
+> * Quantum minimal atteint : pour `dy = 1, dz = 1, k = 1`, l'aire vaut exactement `a² = A(1/2)`
+>   (`operational_area_minimal_eq`).
+>
+> **3 · Le spectre d'aire LQG et le pont de Bekenstein–Hawking.**  
+> Le spectre d'aire de Rovelli `A(j) = 8 π γ ℓ_P² √(j(j + 1))` possède des niveaux strictement
+> croissants (`areaSpectrum_strictMono`). Pour le spin fondamental `j = 1/2`,
+> `A(1/2) = 4 π √3 γ ℓ_P²`. L'entropie de `n` piqûres `S = n log 2` satisfait
+> `S = A / (4 ℓ_P²)` si et seulement si `γ = log 2 / (π √3)` (`bekensteinHawking_iff_immirzi`).
+>
+> **4 · Un lien est une piqûre : loi d'aire transverse et constante cosmologique.**  
+> Sur toute section transverse de l'espace continu ℝ³ d'échantillonnage `dy · dz` avec `k` quanta :
+> * Entropie : `S_XYZ = (dy · dz · k) log 2` (`punctureEntropyXYZ_eq_log`).
+> * Aire géométrique : `A_XYZ = a² · (dy · dz · k) = (dy · dz · k) · A(1/2)`
+>   (`minkowski_transverse_area_eq_surfaceArea`).
+> * Constante cosmologique positive : `Λ = 3π / (ℓ² S_XYZ) > 0`
+>   (`cosmologicalConstantXYZ_pos`).
+> * Aire d'horizon : `12π / Λ = a² · (dy · dz · k)` (`horizonAreaXYZ_eq`).
+>
+> **5 · Plafond de localisation universel.**  
+> L'angle RS^N `θ_NRS(d) = arccos(1/C_N(d))` satisfait pour tout `d ≥ 4` :
+> `θ_NRS(4) ≈ 7.43° ≤ θ_NRS(d) < arccos(1/C_N^∞) ≈ 28.30°` (`angle_lt_ceiling`).
+> Le plafond asymptotique n'est jamais atteint (`ceiling_not_attained`) : il n'y a aucun état
+> physique de graviton au plafond.
 
 ---
 
-## Cadre géométrique : espace continu ℝ³ et fibrage de Minkowski ℝ³ × S¹
+## Cadre géométrique : espace continu ℝ³ et variété Minkowski ℝ³ × S¹
 
-Dans la physique ordinaire, on imagine souvent un échafaudage rigide ou un maillage discret
-préexistant dans l'espace. Cela n'existe pas : **l'espace euclidien physique ℝ³ est ouvert et
-continu**.
+Dans la physique standard, on postule parfois une géométrie pré-discrétisée ou un treillis
+d'espace. La géométrie physique démontrée ici en est l'exact opposé : **l'espace euclidien
+physique ℝ³ est ouvert, infini et continu**.
 
-Lorsque l'on définit la paire canonique de transport `(T_d, P_d)` :
-* On ne divise pas l'espace en atomes de volume.
-* On définit l'action de transport métrique : pour relier deux positions séparées par une
-  distance métrique, la dynamique exige un opérateur de translation T conjugué à la position P.
-* En échantillonnant ce transit avec une résolution ou un nombre fini d'observables, ce qui est
-  quantifié est la dimension `d` de l'espace de Hilbert `ℋ_d` du générateur de déplacement.
-* Sur les trois axes cartésiens indépendants X, Y, Z, le produit tensoriel forme l'espace d'états
-  tridimensionnel : `ℋ_{d³} = ℋ_d^{(x)} ⊗ ℋ_d^{(y)} ⊗ ℋ_d^{(z)}`, avec `[O_X, O_Y] = 0`.
-* L'espace-temps physique est Minkowski `ℝ³ × S¹`, avec une fibre temporelle propre sur `S¹` à
-  l'échelle de raccordement `a` :
-  * En espace pur 3D (`d ≤ 3`), la saturation de Robertson–Schrödinger est exacte
-    (`defectGram = 0`, `C_N = 1`). La propagation est luminale (`dτ = 0`) : les photons
-    voyagent sans masse ni horloge interne.
-  * Dans la fibration temporelle (`d = 4`), avancer le long du temps propre (`dτ > 0`) active
-    la 4ᵉ dimension, allumant les matrices de Clifford et le défaut irréductible de Szegő
+La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
+* L'espace n'est pas fragmenté en morceaux discrets.
+* Le paramètre `d` est la dimension de résolution de l'espace de Hilbert `ℋ_d` utilisé
+  pour échantillonner l'action de translation et position le long d'un axe continu.
+* Sur les trois axes cartésiens continus orthogonaux X, Y, Z :
+  `ℋ_{d³} = ℋ_d^{(x)} ⊗ ℋ_d^{(y)} ⊗ ℋ_d^{(z)}`, avec `[O_X, O_Y] = 0`.
+* L'espace-temps physique est la variété de Minkowski `ℝ³ × S¹` avec la fibre temporelle propre
+  sur `S¹` à l'échelle de longueur `a` :
+  * En dimension spatiale pure 3D (`d ≤ 3`), la saturation de Robertson–Schrödinger est exacte :
+    `defectGram = 0`, `C_N = 1`. Le transport est luminal (`dτ = 0`) et sans masse.
+  * L'avancée le long de la fibre temporelle propre (`d = 4`, `dτ > 0`) active les matrices
+    gamma de Dirac `4 × 4` et le défaut irréductible de Szegő :
     `C_M(4) = (94 − 42√5)/5 ≈ 0.017029 > 0`.
-  * La positivité hilbertienne `⟨ψ|ψ⟩ ≥ 0` implique `defectGram(d) ≥ 0` : le temps propre
-    ne peut que s'écouler vers l'avant.
+  * La positivité du produit scalaire `⟨ψ|ψ⟩ ≥ 0` garantit `defectGram(d) ≥ 0`.
+* La longueur de Planck `ℓ_P` agit comme **limite opérationnelle** de résolution de mesure
+  sur l'espace continu ℝ³, établissant le quantum d'aire minimal `A(1/2) = a² = 4 ℓ_P² log 2`.
 
 ---
 
 ## Résultats formels certifiés en Lean 4
 
-### 1. Le spectre d'aire LQG et le comptage des piqûres (1D)
+### 1. Le spectre d'aire LQG et le comptage des piqûres
 
 | Énoncé formel | Déclaration Lean |
 |---|---|
@@ -96,11 +119,11 @@ Lorsque l'on définit la paire canonique de transport `(T_d, P_d)` :
 | Entropie de `n` piqûres de spin `j` : `S = log (2j + 1)ⁿ`, additive | `punctureEntropy_eq_log_card`, `punctureEntropy_add` |
 | Proportionnalité aire-entropie au spin 1/2 : `S = (log 2 / A(1/2)) · A` | `entropy_proportional_to_area` |
 | `S = A / (4 ℓ_P²)` si et seulement si `γ = log 2 / (π √3) ≈ 0.1274` | `bekensteinHawking_iff_immirzi` |
-| **Un lien est une piqûre** : coupure avec `M = 2j + 1` liens | `cutEntropy_eq_punctureEntropy` |
-| Coupure à `0` sur quatre sites a `M = 2` : `k` piqûres de spin 1/2 | `numCross_three_zero`, `cutEntropy_spin_half` |
+| **Un lien est une piqûre** : coupure avec `M = 2j + 1` liens | `cutEntropy_spin_half` |
+| Coupure à `0` sur quatre sites a `M = 2` : `k` piqûres de spin 1/2 | `numCross_three_zero` |
 | Sous le pont de base (`M = 2`), un lien a l'aire `A(1/2)` à `γ_BH` | `link_area_eq_puncture` |
 
-### 2. Cube XYZ : Espace continu ℝ³ et Minkowski ℝ³ × S¹ avec fibre d'échelle a
+### 2. Cube XYZ : Espace continu ℝ³, Minkowski ℝ³ × S¹ et fibre d'échelle a
 
 | Énoncé formel | Déclaration Lean |
 |---|---|
@@ -116,17 +139,13 @@ Lorsque l'on définit la paire canonique de transport `(T_d, P_d)` :
 | Anti-monotonie stricte : section transverse plus large donne plus petit `Λ` | `cosmologicalConstantXYZ_strictAnti_area` |
 | L'aire d'horizon de de Sitter égale l'aire transverse `a² · (dy · dz · k)` | `horizonAreaXYZ_eq` |
 
-### 3. Les coutures du trois-tore (T³)
+### 3. Limite opérationnelle à l'échelle de Planck ℓ_P sur l'espace continu ℝ³
 
 | Énoncé formel | Déclaration Lean |
 |---|---|
-| Nombre de pas de couture : `2 · dy · dz` pas frontière | `TorusSeams.crossStepsCount` |
-| Les pas de couture sont des piqûres : `S_cut = S_punct(2 dy dz, 1/2)` | `TorusSeams.cutEntropy_eq_punctureEntropy` |
-| Bekenstein–Hawking sur le tore ssi `γ = log 2 / (π √3)` | `TorusSeams.torus_immirzi_iff` |
-| Constante cosmologique de coupure : `Λ = 3π / (2 ℓ² dy dz log 2)` | `TorusSeams.cutCosmologicalConstant_eq` |
-| Fermer les axes divise `Λ` par deux : `Λ_tore = Λ_ouvert / 2` | `TorusSeams.cutCosmologicalConstant_eq_half` |
-| Positivité stricte de la constante cosmologique du tore : `Λ_tore > 0` | `TorusSeams.cutCosmologicalConstant_pos` |
-| Aire d'horizon de la coupure du tore : `12π / Λ = a² · 2 dy dz` | `TorusSeams.horizonArea_cutCosmologicalConstant` |
+| Résolution opérationnelle minimale : `1 ≤ punctureCountXYZ dy dz k` | `operational_punctureCount_ge_one` |
+| Borne minimale de Planck : `a² ≤ surfaceAreaXYZ lp γ_BH dy dz k` | `operational_area_ge_planck_quantum` |
+| Quantum minimal atteint à l'unité : pour `dy = dz = k = 1`, aire `= a²` | `operational_area_minimal_eq` |
 
 ### 4. Le plafond universel de localisation
 
@@ -141,8 +160,8 @@ Lorsque l'on définit la paire canonique de transport `(T_d, P_d)` :
 <img src="docs/figures/link_puncture.png" alt="Un lien est une piqûre" width="860">
 </div>
 
-L'entropie des piqûres n'est pas une seconde entropie : `LinkPuncture`, `CubeXYZ` et `TorusSeams`
-l'identifient à l'entropie de coupure du transport, sous un pont unique de Bekenstein–Hawking.
+L'entropie des piqûres n'est pas une seconde entropie : `LinkPuncture` et `CubeXYZ` l'identifient
+à l'entropie de coupure du transport, sous un pont unique de Bekenstein–Hawking.
 `Verification/Axioms.lean` certifie que l'ensemble des résultats repose exclusivement sur
 les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 
@@ -152,11 +171,8 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 
 * Page interactive principale : [naype888-cloud.github.io/nrs3-rovelli-lqg][pages]
   (spectre d'aire LQG, angle de localisation et distance au plafond).
-* Version sur le trois-tore fermé (T³) : [naype888-cloud.github.io/nrs3-rovelli-lqg/t3.html][t3]
-  (axes fermés en anneaux, 2·dy·dz piqûres de couture, sphère de lumière 3D).
 
 [pages]: https://naype888-cloud.github.io/nrs3-rovelli-lqg/
-[t3]: https://naype888-cloud.github.io/nrs3-rovelli-lqg/t3.html
 
 <div align="center">
 <img src="docs/figures/rovelli_area_spectrum.png" alt="Spectre d'aire LQG d'une piqûre" width="860">

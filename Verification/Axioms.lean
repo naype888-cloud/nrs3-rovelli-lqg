@@ -36,9 +36,6 @@ import NRS3Rovelli
 #print axioms NRS3Rovelli.cosmologicalConstantXYZ_pos
 #print axioms NRS3Rovelli.cosmologicalConstantXYZ_strictAnti_area
 #print axioms NRS3Rovelli.horizonAreaXYZ_eq
-#print axioms NRS3Rovelli.TorusSeams.cutEntropy_eq_punctureEntropy
-#print axioms NRS3Rovelli.TorusSeams.torus_immirzi_iff
-#print axioms NRS3Rovelli.TorusSeams.cutCosmologicalConstant_eq
-#print axioms NRS3Rovelli.TorusSeams.cutCosmologicalConstant_eq_half
-#print axioms NRS3Rovelli.TorusSeams.cutCosmologicalConstant_pos
-#print axioms NRS3Rovelli.TorusSeams.horizonArea_cutCosmologicalConstant
+#print axioms NRS3Rovelli.operational_punctureCount_ge_one
+#print axioms NRS3Rovelli.operational_area_ge_planck_quantum
+#print axioms NRS3Rovelli.operational_area_minimal_eq

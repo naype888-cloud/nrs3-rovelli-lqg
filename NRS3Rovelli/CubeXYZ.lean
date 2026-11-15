@@ -202,4 +202,37 @@ theorem horizonAreaXYZ_eq {dy dz k : ℕ} (hy : 1 ≤ dy) (hz : 1 ≤ dz) (hk : 
   field_simp
   ring
 
+/-- **Operational Planck Limit**: the minimum count of punctures across any physical cut
+in continuous space ℝ³ is bounded below by 1. Space is continuous ℝ³, but operational
+measurement resolution is bounded below by the Planck length `ℓ_P`. -/
+theorem operational_punctureCount_ge_one {dy dz k : ℕ}
+    (hy : 1 ≤ dy) (hz : 1 ≤ dz) (hk : 1 ≤ k) :
+    1 ≤ punctureCountXYZ dy dz k :=
+  punctureCountXYZ_pos hy hz hk
+
+/-- **Operational Area Lower Bound**: every physical transverse cut in continuous space ℝ³
+has area at least the Planck fiber area `a² = 4 ℓ_P² log 2 = A(1/2)`. -/
+theorem operational_area_ge_planck_quantum {lp a : ℝ} (hlp : lp ≠ 0)
+    (ha : a ^ 2 = 4 * lp ^ 2 * Real.log 2) {dy dz k : ℕ}
+    (hy : 1 ≤ dy) (hz : 1 ≤ dz) (hk : 1 ≤ k) :
+    a ^ 2 ≤ surfaceAreaXYZ lp (Real.log 2 / (π * √3)) dy dz k := by
+  rw [← minkowski_transverse_area_eq_surfaceArea ha]
+  have ha2_pos : 0 < a ^ 2 := by
+    rw [ha]
+    exact mul_pos (mul_pos (by norm_num) (sq_pos_of_ne_zero hlp)) (Real.log_pos one_lt_two)
+  have h_count : (1 : ℝ) ≤ (punctureCountXYZ dy dz k : ℝ) := by
+    exact_mod_cast (operational_punctureCount_ge_one hy hz hk)
+  have : a ^ 2 * 1 ≤ a ^ 2 * (punctureCountXYZ dy dz k : ℝ) :=
+    mul_le_mul_of_nonneg_left h_count (le_of_lt ha2_pos)
+  linarith
+
+/-- When the operational resolution reaches the single-puncture limit `dy = 1, dz = 1, k = 1`,
+the transverse area in continuous space ℝ³ attains identically the fiber quantum `a² = A(1/2)`. -/
+theorem operational_area_minimal_eq {lp a : ℝ}
+    (ha : a ^ 2 = 4 * lp ^ 2 * Real.log 2) :
+    surfaceAreaXYZ lp (Real.log 2 / (π * √3)) 1 1 1 = a ^ 2 := by
+  rw [← minkowski_transverse_area_eq_surfaceArea ha]
+  unfold punctureCountXYZ transverseFibers
+  norm_num
+
 end NRS3Rovelli
