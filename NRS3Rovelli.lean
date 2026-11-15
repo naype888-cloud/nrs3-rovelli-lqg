@@ -10,3 +10,4 @@ public import NRS3Rovelli.PunctureEntropy
 public import NRS3Rovelli.Ceiling
 public import NRS3Rovelli.LinkPuncture
 public import NRS3Rovelli.CubeXYZ
+public import NRS3Rovelli.OpenCubeBridge

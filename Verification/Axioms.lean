@@ -39,3 +39,5 @@ import NRS3Rovelli
 #print axioms NRS3Rovelli.operational_punctureCount_ge_one
 #print axioms NRS3Rovelli.operational_area_ge_planck_quantum
 #print axioms NRS3Rovelli.operational_area_minimal_eq
+#print axioms NRS3Rovelli.card_faceSites
+#print axioms NRS3Rovelli.faceArea_eq_surfaceArea
