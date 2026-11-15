@@ -178,7 +178,7 @@
   const deg = (x) => x * 180 / Math.PI;
   const CEIL = 45; // arccos(1 / C°_infty), C°_infty = sqrt 2: the limit of the ring, not a bound
   // ring angle: C°(d) from the maximal-current state of (T°_d, P_d), cone-t3.js
-  const thetaNRS = (d) => deg(Math.acos(Math.min(1, 1 / Cone.ring.CNava(d))));
+  const thetaNRS = (d) => deg(Math.acos(Math.min(1, 1 / Cone.ring.uncertaintyRatio(d))));
   const dOf = (u) => Math.round(3 + 57 * u / 1000); // slider 0..1000 -> d = 3..60
   const A = (j) => 8 * Math.PI * Math.sqrt(j * (j + 1)); // units lp^2, gamma = 1
   const JMIN = A(0.5), JMAX = 6.5;

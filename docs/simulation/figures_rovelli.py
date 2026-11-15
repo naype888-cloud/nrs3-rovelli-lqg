@@ -6,7 +6,7 @@ Figure 1: the LQG area spectrum A(j) = 8 pi gamma lp^2 sqrt(j (j + 1)), j = 1/2,
 (plotted with gamma = 1, lp = 1). Every level with j >= 1/2 is at least A(1/2) = 4 pi sqrt(3)
 (Lean: areaSpectrum_min, areaSpectrum_strictMono).
 
-Figure 2 (left): the exact NRS angle theta_NRS(d) = arccos(1 / C_Nava(d)) of the base
+Figure 2 (left): the exact NRS angle theta_NRS(d) = arccos(1 / C_N(d)) of the base
 repository (D37b, D8 closed form). theta = 0 at d = 2, 3 (Robertson saturates),
 theta_NRS(4) = 7.43 deg, and the ceiling arccos(1 / C_infty) = 28.30 deg is the limit,
 never attained (Lean: angle_lt_ceiling, ceiling_not_attained, tendsto_angle_ceiling).
@@ -23,7 +23,7 @@ import numpy as np
 from style import BLUE, INK, INK2, MUTED, ORANGE, OUT, SURFACE
 
 SQRT3 = np.sqrt(3.0)
-# C_Nava(d)^2 in closed form (D8_Szego.CoherenceConstantSq), N = d + 1, t = pi / N.
+# C_N(d)^2 in closed form (D8_Szego.CoherenceConstantSq), N = d + 1, t = pi / N.
 def coherence_sq(d):
     n = d + 1.0
     t = np.pi / n
@@ -31,7 +31,7 @@ def coherence_sq(d):
 
 
 def angle_nrs_deg(d):
-    """theta_NRS(d) = arccos(1 / C_Nava(d)) in degrees (D37b); 0 at d = 2, 3."""
+    """theta_NRS(d) = arccos(1 / C_N(d)) in degrees (D37b); 0 at d = 2, 3."""
     return np.degrees(np.arccos(np.clip(1 / np.sqrt(coherence_sq(d)), -1, 1)))
 
 
@@ -90,7 +90,7 @@ def fig_theta_punctures():
     # Left: the exact NRS angle and its ceiling
     ds = np.arange(2, 201)
     th = angle_nrs_deg(ds)
-    ax.plot(ds, th, "o", color=BLUE, ms=3.2, label="θ_NRS(d) = arccos(1/C_Nava(d))  (D37b)")
+    ax.plot(ds, th, "o", color=BLUE, ms=3.2, label="θ_NRS(d) = arccos(1/C_N(d))  (D37b)")
     ax.axhline(CEIL_DEG, color=ORANGE, lw=2, ls="--",
                label=f"ceiling arccos(1/C∞) = {CEIL_DEG:.2f}°  (limit, never attained)")
     ax.plot([4], [THETA4_DEG], "o", color=ORANGE, ms=7, mec=SURFACE, mew=1.2, zorder=6)
