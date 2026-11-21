@@ -42,10 +42,10 @@
 > **1 · Espace continu infini ℝ³ et Minkowski ℝ³ × S¹ avec fibre temporelle d'échelle a.**  
 > L'espace physique tridimensionnel est l'espace euclidien continu ouvert ℝ³.
 > La 4ᵉ dimension est la fibre temporelle propre sur S¹ à l'échelle du générateur `a` :
-> * Phase spatiale pure 3D (`d ≤ 3`) : `defectGram(d) = 0`, phase luminale sans masse (`dτ = 0`).
+> * Phase spatiale pure 3D (`d ≤ 3`) : `C_N(d) = 1`, phase luminale sans masse (`dτ = 0`).
 > * Parcours du temps propre (`d = 4`, `dτ > 0`) : active les matrices de Clifford et le défaut
->   irréductible de Szegő `C_M(4) = (94 − 42√5)/5 ≈ 0.017029 > 0`.
-> * Positivité hilbertienne : `⟨ψ|ψ⟩ ≥ 0 ⟹ defectGram(d) ≥ 0` (flèche causale stricte).
+>   irréductible de Szegő `C_N(4)² − 1 = (94 − 42√5)/5 ≈ 0.017029 > 0` (dépôt canonique, modules D8 et D20).
+> * Positivité hilbertienne : `⟨ψ|ψ⟩ ≥ 0 ⟹` défaut de Gram `≥ 0` (flèche causale stricte).
 >
 > **2 · Limite opérationnelle à l'échelle de Planck ℓ_P (pas de treillis spatial rigide).**  
 > Ce qui est quantifié est la résolution `d` du générateur de transport métrique `(T_d, P_d)`
@@ -81,7 +81,18 @@
 
 ---
 
-## Cadre géométrique : espace continu ℝ³ et variété Minkowski ℝ³ × S¹
+## ⚡ Résumé formel
+
+* Le spectre d'aire est strictement croissant et son quantum minimal est `A(1/2) = 4 π √3 γ ℓ_P²` : [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`areaSpectrum_strictMono`, `areaSpectrum_half`, `areaSpectrum_min`).
+* L'entropie des piqûres est le logarithme du nombre d'états, proportionnelle à l'aire ; Bekenstein–Hawking vaut si et seulement si `γ = log 2 / (π √3)` : [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`punctureEntropy_eq_log_card`, `entropy_proportional_to_area`, `bekensteinHawking_iff_immirzi`).
+* Sur la coupe en `0` de la chaîne à quatre sites, `M = 2` : `k` liens sont `k` piqûres de spin 1/2 : [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`numCross_three_zero`, `cutEntropy_spin_half`).
+* Une face du cube ouvert a `dy · dz` positions et son aire est l'aire LQG de ses piqûres : [`NRS3Rovelli/OpenCubeBridge.lean`](NRS3Rovelli/OpenCubeBridge.lean) (`card_faceSites`, `faceArea_eq_surfaceArea`).
+* Sur la tranche transverse, Bekenstein–Hawking fixe le même γ et `Λ = 3 π / (ℓ² dy dz k log 2) > 0` : [`NRS3Rovelli/CubeXYZ.lean`](NRS3Rovelli/CubeXYZ.lean) (`immirzi_bekensteinHawking_iff`, `cosmologicalConstantXYZ_pos`).
+* `θ_NRS(d) < arccos(1 / C_N^∞) ≈ 28,30°` pour tout `d ≥ 4` ; le plafond n'est pas atteint et c'est la borne supérieure : [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) (`angle_lt_ceiling`, `ceiling_not_attained`, `ceiling_isLUB`).
+
+---
+
+## 🧭 Cadre géométrique : espace continu ℝ³ et variété Minkowski ℝ³ × S¹
 
 Dans la physique standard, on postule parfois une géométrie pré-discrétisée ou un treillis
 d'espace. La géométrie physique démontrée ici en est l'exact opposé : **l'espace euclidien
@@ -96,11 +107,11 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 * L'espace-temps physique est la variété de Minkowski `ℝ³ × S¹` avec la fibre temporelle propre
   sur `S¹` à l'échelle de longueur `a` :
   * En dimension spatiale pure 3D (`d ≤ 3`), la saturation de Robertson–Schrödinger est exacte :
-    `defectGram = 0`, `C_N = 1`. Le transport est luminal (`dτ = 0`) et sans masse.
+    `C_N = 1`. Le transport est luminal (`dτ = 0`) et sans masse.
   * L'avancée le long de la fibre temporelle propre (`d = 4`, `dτ > 0`) active les matrices
     gamma de Dirac `4 × 4` et le défaut irréductible de Szegő :
-    `C_M(4) = (94 − 42√5)/5 ≈ 0.017029 > 0`.
-  * La positivité du produit scalaire `⟨ψ|ψ⟩ ≥ 0` garantit `defectGram(d) ≥ 0`.
+    `C_N(4)² − 1 = (94 − 42√5)/5 ≈ 0.017029 > 0` (dépôt canonique, modules D8 et D20).
+  * La positivité du produit scalaire `⟨ψ|ψ⟩ ≥ 0` garantit un défaut de Gram `≥ 0`.
 * La longueur de Planck `ℓ_P` agit comme **limite opérationnelle** de résolution de mesure
   sur l'espace continu ℝ³, établissant le quantum d'aire minimal `A(1/2) = a² = 4 ℓ_P² log 2`.
 
@@ -155,7 +166,25 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 
 ---
 
-## Résultats formels certifiés en Lean 4
+## 🔬 Contributions Physlib fusionnées liées
+
+| PR Physlib | Titre | Lien avec ce dépôt | Statut |
+|:---:|:---|:---|:---:|
+| [**#1725**](https://github.com/leanprover-community/physlib/pull/1725) | the open tight binding cube NRS³ | Le cube ouvert dont une face porte les piqûres (`OpenCubeBridge.lean`), étape 4 | **MERGED** |
+| [**#1756**](https://github.com/leanprover-community/physlib/pull/1756) | the NRS angle and the volumetric quantum of the open tight binding cube | `θ_NRS = arccos(1 / C_N)`, croissant et sous `arccos(1 / C_N^∞)` : le plafond de l'étape 4 | **MERGED** |
+
+---
+
+## 📚 Catalogue des modules Lean
+
+| Module | Théorème principal | Signification | `sorry` |
+|:---|:---|:---|:---:|
+| [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) | `areaSpectrum_min` | Toute aire de spin `j ≥ 1/2` est `≥ A(1/2)` | 0 |
+| [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) | `bekensteinHawking_iff_immirzi` | `S = A / (4 ℓ_P²)` ⟺ `γ = log 2 / (π √3)` | 0 |
+| [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) | `cutEntropy_spin_half` | `k` liens de la coupe = `k` piqûres de spin 1/2 | 0 |
+| [`NRS3Rovelli/OpenCubeBridge.lean`](NRS3Rovelli/OpenCubeBridge.lean) | `faceArea_eq_surfaceArea` | L'aire d'une face du cube est l'aire LQG | 0 |
+| [`NRS3Rovelli/CubeXYZ.lean`](NRS3Rovelli/CubeXYZ.lean) | `cosmologicalConstantXYZ_pos` | `Λ = 3 π / (ℓ² dy dz k log 2) > 0` | 0 |
+| [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) | `angle_lt_ceiling` | `θ_NRS(d) < arccos(1 / C_N^∞)` pour `d ≥ 4` | 0 |
 
 ### 1. Le spectre d'aire LQG et le comptage des piqûres
 
@@ -217,7 +246,7 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 
 ---
 
-## Visualisations interactives et figures
+## 🖼️ Visualisations interactives et figures
 
 * Page interactive principale : [naype888-cloud.github.io/nrs3-rovelli-lqg][pages]
   (spectre d'aire LQG, angle de localisation et distance au plafond).
@@ -231,39 +260,7 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 
 ---
 
-## Compilation et certification du noyau
-
-Le projet utilise Lean 4 `v4.34.0` et Mathlib `v4.34.0` via le dépôt de base canonique.
-
-```bash
-lake exe cache get
-lake build
-lake env lean Verification/Axioms.lean   # uniquement propext, Classical.choice, Quot.sound
-```
-
-Spécifications formelles : 0 sorry, aucun axiome ad hoc, `autoImplicit = false`,
-lignes de 100 caractères au maximum.
-
----
-
-## Chronologie 1911–1945
-
-| Année | Événement | Dépôt associé |
-|---|---|---|
-| 1911 | Premier congrès Solvay : radiation et quanta | |
-| 1911–12 | Poincaré : la loi de Planck impose des niveaux discrets | [`nrs3-poincare`](https://github.com/naype888-cloud/nrs3-poincare) |
-| 1915–20 | Szegő : théorèmes limites pour matrices de Toeplitz | [Dépôt de base (RS^N, RS^N³)](https://github.com/naype888-cloud/nava-robertson-schrodinger) |
-| 1917–27 | Einstein et de Sitter : `Λ` ; Friedmann et Lemaître | [`nrs3-de-sitter`](https://github.com/naype888-cloud/nrs3-de-sitter) |
-| 1925–27 | Pauli : exclusion, couches `2n²`, matrices de spin | [`nrs3-pauli-dirac`](https://github.com/naype888-cloud/nrs3-pauli-dirac) |
-| 1927 | Relation d'incertitude de Heisenberg ; Solvay | |
-| 1928 | Dirac : matrices gamma `4 × 4` | [`nrs3-pauli-dirac`](https://github.com/naype888-cloud/nrs3-pauli-dirac) |
-| 1929 | van der Waerden : spineurs, `SL(2, ℂ)` | [`nrs3-uncertainty-cone`](https://github.com/naype888-cloud/nrs3-uncertainty-cone) |
-| **1929–30** | **Robertson et Schrödinger : l'inégalité d'incertitude** | **[Dépôt de base (RS^N, RS^N³)](https://github.com/naype888-cloud/nava-robertson-schrodinger)** |
-| 1945–46 | Mandelstam–Tamm ; Rao (1945), Cramér (1946) | [`nrs3-mandelstam-tamm-cramer-rao`](https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao) |
-
----
-
-## La mosaïque des dépôts RS^N³
+## 🏛️ La mosaïque des dépôts RS^N³
 
 - [RS^N et RS^N³ — Le théorème de base](https://github.com/naype888-cloud/nava-robertson-schrodinger)
 - [RS^N³ · Mandelstam–Tamm et Cramér–Rao](https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao)
@@ -280,6 +277,38 @@ lignes de 100 caractères au maximum.
 
 ---
 
-## Licence
+## ⏱️ Chronologie 1911–1945
+
+| Année | Événement | Dépôt associé |
+|---|---|---|
+| 1911 | Premier congrès Solvay : radiation et quanta | |
+| 1911–12 | Poincaré : la loi de Planck impose des niveaux discrets | [`nrs3-poincare`](https://github.com/naype888-cloud/nrs3-poincare) |
+| 1915–20 | Szegő : théorèmes limites pour matrices de Toeplitz | [Dépôt de base (RS^N, RS^N³)](https://github.com/naype888-cloud/nava-robertson-schrodinger) |
+| 1917–27 | Einstein et de Sitter : `Λ` ; Friedmann et Lemaître | [`nrs3-de-sitter`](https://github.com/naype888-cloud/nrs3-de-sitter) |
+| 1925–27 | Pauli : exclusion, couches `2n²`, matrices de spin | [`nrs3-pauli-dirac`](https://github.com/naype888-cloud/nrs3-pauli-dirac) |
+| 1927 | Relation d'incertitude de Heisenberg ; Solvay | |
+| 1928 | Dirac : matrices gamma `4 × 4` | [`nrs3-pauli-dirac`](https://github.com/naype888-cloud/nrs3-pauli-dirac) |
+| 1929 | van der Waerden : spineurs, `SL(2, ℂ)` | [`nrs3-uncertainty-cone`](https://github.com/naype888-cloud/nrs3-uncertainty-cone) |
+| **1929–30** | **Robertson et Schrödinger : l'inégalité d'incertitude** | **[Dépôt de base (RS^N, RS^N³)](https://github.com/naype888-cloud/nava-robertson-schrodinger)** |
+| 1945–46 | Mandelstam–Tamm ; Rao (1945), Cramér (1946) | [`nrs3-mandelstam-tamm-cramer-rao`](https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao) |
+
+---
+
+## 🛠️ Compilation et certification du noyau
+
+Le projet utilise Lean 4 `v4.34.0` et Mathlib `v4.34.0` via le dépôt de base canonique.
+
+```bash
+lake exe cache get
+lake build
+lake env lean Verification/Axioms.lean   # uniquement propext, Classical.choice, Quot.sound
+```
+
+Spécifications formelles : 0 sorry, aucun axiome ad hoc, `autoImplicit = false`,
+lignes de 100 caractères au maximum.
+
+---
+
+## 📜 Licence
 
 NRS Noncommercial License 1.0.0, voir [`LICENSE`](LICENSE). Auteur : Eduardo Nava Hernández.
