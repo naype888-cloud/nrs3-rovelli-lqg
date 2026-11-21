@@ -6,9 +6,10 @@
 **Eduardo Nava Hernández**  
 *Vérification formelle certifiée en Lean 4 · 0 sorry · Mathlib (ZFC)*
 
-[![Lean 4](https://img.shields.io/badge/Lean_4-v4.34.0-blue.svg?style=flat-square)](https://leanprover.github.io/)
+[![Lean 4](https://img.shields.io/badge/Lean_4-v4.35.0-blue.svg?style=flat-square)](https://leanprover.github.io/)
 [![Mathlib](https://img.shields.io/badge/Mathlib-vérifié-2ea44f.svg?style=flat-square)](https://github.com/leanprover-community/mathlib4)
-[![Kernel Status](https://img.shields.io/badge/Kernel-0%20sorry%20%7C%20ZFC-brightgreen.svg?style=flat-square)]()
+[![Kernel Status](https://img.shields.io/badge/Kernel-0%20sorry%20%7C%20ZFC-brightgreen.svg?style=flat-square)](Verification/Axioms.lean)
+[![Physlib](https://img.shields.io/badge/Physlib-PRs%20Fusionnées-brightgreen.svg?style=flat-square)](https://github.com/leanprover-community/physlib/pulls?q=is%3Apr+is%3Amerged+author%3Anaype888-cloud)
 [![Simulateur Ouvert](https://img.shields.io/badge/Simulateur-Espace_Continu-00e5ff.svg?style=for-the-badge&logo=three.js)](https://naype888-cloud.github.io/nrs3-rovelli-lqg/)
 
 </div>
@@ -21,7 +22,7 @@
 > de niveaux discrets, et l'entropie d'horizon compte les états de piqûres :
 >
 > <div align="center">
-> <img src="assets/plaque_rovelli_lqg_protagoniste.png" alt="Plaque Rovelli LQG protagoniste" width="860">
+> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_protagoniste.png"><img src="assets/claro/plaque_rovelli_lqg_protagoniste.png" alt="Plaque Rovelli LQG protagoniste" width="860"></picture>
 > </div>
 >
 > #### ⚡ L'ÉQUATION PRINCIPALE QUI DÉMONTRE LE THÉORÈME (EN PREMIER LIEU)
