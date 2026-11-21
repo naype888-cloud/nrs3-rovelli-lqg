@@ -106,6 +106,47 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 
 ---
 
+## 📐 Démonstration constructive en quatre étapes
+
+<div align="center">
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_etapes.png"><img src="assets/claro/plaque_rovelli_lqg_etapes.png" alt="L'échelle déductive en quatre étapes : du spectre d'aire au paramètre d'Immirzi" width="860"></picture>
+</div>
+
+### Étape 1 : Spectre d'aire de Rovelli en LQG
+
+> **Proposition 1.1 (Quantification du spectre d'aire).** En gravitation quantique à boucles, l'opérateur d'aire pour une représentation de spin j admet les valeurs propres A(j) = 8 π γ ℓ_P² √(j(j + 1)). L'état fondamental non trivial de spin j = 1/2 fixe l'aire minimale A(1/2) = 4 π √3 γ ℓ_P².
+
+*Module formel :* [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`areaSpectrum`, `areaSpectrum_strictMono`, `areaSpectrum_half`, `areaSpectrum_min`).
+
+---
+
+### Étape 2 : Entropie des piqûres d'horizon
+
+> **Proposition 2.1 (Comptage des états sur l'horizon).** Pour une surface percée de N piqûres de spin j = 1/2, chaque piqûre apporte un degré de liberté binaire, donnant l'entropie microscopique S = N ln(2j + 1) = N ln 2.
+
+*Module formel :* [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`punctureEntropy_eq_log_card`, `punctureEntropy_add`).  
+*Module formel (aire) :* [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`surfaceArea_ge`).
+
+---
+
+### Étape 3 : Dérivation canonique du paramètre d'Immirzi
+
+> **Proposition 3.1 (Accord avec la thermodynamique de Bekenstein–Hawking).** L'entropie des piqûres coïncide avec la loi d'aire de Bekenstein–Hawking S = A / (4 ℓ_P²) si et seulement si le paramètre d'Immirzi prend la valeur canonique γ = ln 2 / (π √3) ≈ 0.12738.
+
+*Module formel :* [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`bekensteinHawking_iff_immirzi`, `entropy_proportional_to_area`).  
+*Module formel (liaisons) :* [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`link_area_eq_puncture`).
+
+---
+
+### Étape 4 : Pont du cube ouvert NRS³ et plafond de localisation
+
+> **Proposition 4.1 (Surface transverse et coupures).** Chaque coupure transverse du cube unitaire correspond à une piqûre fondamentale de spin 1/2 sur l'horizon. L'angle NRS³ ne sature jamais le plafond angulaire π/2.
+
+*Module formel :* [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`cutEntropy_spin_half`, `numCross_three_zero`).  
+*Module formel (plafond) :* [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) (`angle_lt_ceiling`, `ceiling_isLUB`).
+
+---
+
 ## Résultats formels certifiés en Lean 4
 
 ### 1. Le spectre d'aire LQG et le comptage des piqûres
