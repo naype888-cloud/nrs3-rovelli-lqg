@@ -116,6 +116,8 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 
 > **Proposition 1.1 (Quantification du spectre d'aire).** En gravitation quantique à boucles, l'opérateur d'aire pour une représentation de spin j admet les valeurs propres A(j) = 8 π γ ℓ_P² √(j(j + 1)). L'état fondamental non trivial de spin j = 1/2 fixe l'aire minimale A(1/2) = 4 π √3 γ ℓ_P².
 
+<div align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_etape1.png"><img src="assets/claro/plaque_rovelli_lqg_etape1.png" alt="Étape 1 : Spectre d'aire de Rovelli en LQG" width="860"></picture></div>
+
 *Module formel :* [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`areaSpectrum`, `areaSpectrum_strictMono`, `areaSpectrum_half`, `areaSpectrum_min`).
 
 ---
@@ -123,6 +125,8 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 ### Étape 2 : Entropie des piqûres d'horizon
 
 > **Proposition 2.1 (Comptage des états sur l'horizon).** Pour une surface percée de N piqûres de spin j = 1/2, chaque piqûre apporte un degré de liberté binaire, donnant l'entropie microscopique S = N ln(2j + 1) = N ln 2.
+
+<div align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_etape2.png"><img src="assets/claro/plaque_rovelli_lqg_etape2.png" alt="Étape 2 : Entropie des piqûres d'horizon" width="860"></picture></div>
 
 *Module formel :* [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`punctureEntropy_eq_log_card`, `punctureEntropy_add`).  
 *Module formel (aire) :* [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`surfaceArea_ge`).
@@ -133,6 +137,8 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 
 > **Proposition 3.1 (Accord avec la thermodynamique de Bekenstein–Hawking).** L'entropie des piqûres coïncide avec la loi d'aire de Bekenstein–Hawking S = A / (4 ℓ_P²) si et seulement si le paramètre d'Immirzi prend la valeur canonique γ = ln 2 / (π √3) ≈ 0.12738.
 
+<div align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_etape3.png"><img src="assets/claro/plaque_rovelli_lqg_etape3.png" alt="Étape 3 : Dérivation canonique du paramètre d'Immirzi" width="860"></picture></div>
+
 *Module formel :* [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`bekensteinHawking_iff_immirzi`, `entropy_proportional_to_area`).  
 *Module formel (liaisons) :* [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`link_area_eq_puncture`).
 
@@ -141,6 +147,8 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 ### Étape 4 : Pont du cube ouvert NRS³ et plafond de localisation
 
 > **Proposition 4.1 (Surface transverse et coupures).** Chaque coupure transverse du cube unitaire correspond à une piqûre fondamentale de spin 1/2 sur l'horizon. L'angle NRS³ ne sature jamais le plafond angulaire π/2.
+
+<div align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/plaque_rovelli_lqg_etape4.png"><img src="assets/claro/plaque_rovelli_lqg_etape4.png" alt="Étape 4 : Pont du cube ouvert NRS³ et plafond de localisation" width="860"></picture></div>
 
 *Module formel :* [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`cutEntropy_spin_half`, `numCross_three_zero`).  
 *Module formel (plafond) :* [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) (`angle_lt_ceiling`, `ceiling_isLUB`).
@@ -199,7 +207,7 @@ La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 | Le plafond est la borne supérieure exacte (supremum) des angles | `ceiling_isLUB` |
 
 <div align="center">
-<img src="docs/figures/link_puncture.png" alt="Un lien est une piqûre" width="860">
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/figures/oscuro/link_puncture.png"><img src="docs/figures/claro/link_puncture.png" alt="Un lien est une piqûre" width="860"></picture>
 </div>
 
 L'entropie des piqûres n'est pas une seconde entropie : `LinkPuncture` et `CubeXYZ` l'identifient
@@ -217,8 +225,8 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 [pages]: https://naype888-cloud.github.io/nrs3-rovelli-lqg/
 
 <div align="center">
-<img src="docs/figures/rovelli_area_spectrum.png" alt="Spectre d'aire LQG d'une piqûre" width="860">
-<img src="docs/figures/rovelli_theta_punctures.png" alt="Angle RSN et plafond de localisation" width="860">
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/figures/oscuro/rovelli_area_spectrum.png"><img src="docs/figures/claro/rovelli_area_spectrum.png" alt="Spectre d'aire LQG d'une piqûre" width="860"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/figures/oscuro/rovelli_theta_punctures.png"><img src="docs/figures/claro/rovelli_theta_punctures.png" alt="Angle RSN et plafond de localisation" width="860"></picture>
 </div>
 
 ---
