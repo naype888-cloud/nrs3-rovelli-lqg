@@ -43,7 +43,7 @@
 > L'espace physique tridimensionnel est l'espace euclidien continu ouvert ℝ³.
 > La 4ᵉ dimension est la fibre temporelle propre sur S¹ à l'échelle du générateur `a` :
 > * Phase spatiale pure 3D (`d ≤ 3`) : `C_N(d) = 1`, phase luminale sans masse (`dτ = 0`).
-> * Parcours du temps propre (`d = 4`, `dτ > 0`) : active les matrices de Clifford et le défaut
+> * Parcours du temps propre relativiste (`d = 4`, `dτ > 0`) : active les matrices de Clifford et le défaut
 >   irréductible de Szegő `C_N(4)² − 1 = (94 − 42√5)/5 ≈ 0.017029 > 0` (dépôt canonique, modules D8 et D20).
 > * Positivité hilbertienne : `⟨ψ|ψ⟩ ≥ 0 ⟹` défaut de Gram `≥ 0` (flèche causale stricte).
 >
