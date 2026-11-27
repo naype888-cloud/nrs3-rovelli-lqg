@@ -7,7 +7,7 @@
 ### Granularité quantique lue comme incertitude dimensionnelle sur l'espace continu ℝ³
 
 **Eduardo Nava Hernández**  
-*Vérification formelle certifiée en Lean 4 · 0 sorry · Mathlib (<code>ZFC</code>)*
+*Vérification formelle certifiée en Lean 4 · `0 sorry` · Mathlib (<code>ZFC</code>)*
 
 [![Lean 4](https://img.shields.io/badge/Lean_4-v4.35.0-blue.svg?style=flat-square)](https://leanprover.github.io/)
 [![Mathlib](https://img.shields.io/badge/Mathlib-vérifié-2ea44f.svg?style=flat-square)](https://github.com/leanprover-community/mathlib4)
@@ -44,19 +44,19 @@
 >
 > **1 · Espace continu infini ℝ³ et Minkowski ℝ³ × S¹ avec fibre temporelle d'échelle a.**  
 > L'espace physique tridimensionnel est l'espace euclidien continu ouvert ℝ³.
-> La 4ᵉ dimension est la fibre temporelle propre sur S¹ à l'échelle du générateur `a` :
-> * Phase spatiale pure 3D (`d ≤ 3`) : `C_N(d) = 1`, phase luminale sans masse (`dτ = 0`).
+> La 4ᵉ dimension est la fibre temporelle propre sur S¹ à l'échelle du générateur a :
+> * Phase spatiale pure 3D (d ≤ 3) : `C_N(d) = 1`, phase luminale sans masse (`dτ = 0`).
 > * Parcours du temps propre relativiste (`d = 4`, `dτ > 0`) : active les matrices de Clifford et le défaut
 >   irréductible de Szegő `C_N(4)² − 1 = (94 − 42√5)/5 ≈ 0.017029 > 0` (dépôt canonique, modules D8 et D20).
-> * Positivité hilbertienne : `⟨ψ|ψ⟩ ≥ 0 ⟹` défaut de Gram `≥ 0` (flèche causale stricte).
+> * Positivité hilbertienne : ⟨ψ|ψ⟩ ≥ 0 ⟹ défaut de Gram ≥ 0 (flèche causale stricte).
 >
 > **2 · Limite opérationnelle à l'échelle de Planck ℓ_P (pas de treillis spatial rigide).**  
-> Ce qui est quantifié est la résolution `d` du générateur de transport métrique `(T_d, P_d)`
+> Ce qui est quantifié est la résolution d du générateur de transport métrique `(T_d, P_d)`
 > sur les trois axes continus indépendants : `ℋ_{d³} = ℋ_d^{(x)} ⊗ ℋ_d^{(y)} ⊗ ℋ_d^{(z)}`.
 > La longueur de Planck `ℓ_P` pose la limite opérationnelle inférieure de résolution :
-> * Nombre minimal de piqûres opérationnelles : `1 ≤ punctureCountXYZ dy dz k`
+> * Nombre minimal de piqûres opérationnelles : 1 ≤ punctureCountXYZ dy dz k
 >   (`operational_punctureCount_ge_one`).
-> * Borne inférieure d'aire opérationnelle : `a² ≤ surfaceAreaXYZ lp γ_BH dy dz k`
+> * Borne inférieure d'aire opérationnelle : a² ≤ surfaceAreaXYZ lp γ_BH dy dz k
 >   (`operational_area_ge_planck_quantum`).
 > * Quantum minimal atteint : pour `dy = 1, dz = 1, k = 1`, l'aire vaut exactement `a² = A(1/2)`
 >   (`operational_area_minimal_eq`).
@@ -64,11 +64,11 @@
 > **3 · Le spectre d'aire LQG et le pont de Bekenstein–Hawking.**  
 > Le spectre d'aire de Rovelli `A(j) = 8 π γ ℓ_P² √(j(j + 1))` possède des niveaux strictement
 > croissants (`areaSpectrum_strictMono`). Pour le spin fondamental `j = 1/2`,
-> `A(1/2) = 4 π √3 γ ℓ_P²`. L'entropie de `n` piqûres `S = n log 2` satisfait
+> `A(1/2) = 4 π √3 γ ℓ_P²`. L'entropie de n piqûres `S = n log 2` satisfait
 > `S = A / (4 ℓ_P²)` si et seulement si `γ = log 2 / (π √3)` (`bekensteinHawking_iff_immirzi`).
 >
 > **4 · Un lien est une piqûre : loi d'aire transverse et constante cosmologique.**  
-> Sur toute section transverse de l'espace continu ℝ³ d'échantillonnage `dy · dz` avec `k` quanta :
+> Sur toute section transverse de l'espace continu ℝ³ d'échantillonnage `dy · dz` avec k quanta :
 > * Entropie : `S_XYZ = (dy · dz · k) log 2` (`punctureEntropyXYZ_eq_log`).
 > * Aire géométrique : `A_XYZ = a² · (dy · dz · k) = (dy · dz · k) · A(1/2)`
 >   (`minkowski_transverse_area_eq_surfaceArea`).
@@ -77,7 +77,7 @@
 > * Aire d'horizon : `12π / Λ = a² · (dy · dz · k)` (`horizonAreaXYZ_eq`).
 >
 > **5 · Plafond de localisation universel.**  
-> L'angle RS^N `θ_NRS(d) = arccos(1/C_N(d))` satisfait pour tout `d ≥ 4` :
+> L'angle RS^N `θ_NRS(d) = arccos(1/C_N(d))` satisfait pour tout d ≥ 4 :
 > `θ_NRS(4) ≈ 7.43° ≤ θ_NRS(d) < arccos(1/C_N^∞) ≈ 28.30°` (`angle_lt_ceiling`).
 > Le plafond asymptotique n'est jamais atteint (`ceiling_not_attained`) : il n'y a aucun état
 > physique de graviton au plafond.
@@ -88,10 +88,10 @@
 
 * Le spectre d'aire est strictement croissant et son quantum minimal est `A(1/2) = 4 π √3 γ ℓ_P²` : [`NRS3Rovelli/AreaSpectrum.lean`](NRS3Rovelli/AreaSpectrum.lean) (`areaSpectrum_strictMono`, `areaSpectrum_half`, `areaSpectrum_min`).
 * L'entropie des piqûres est le logarithme du nombre d'états, proportionnelle à l'aire ; Bekenstein–Hawking vaut si et seulement si `γ = log 2 / (π √3)` : [`NRS3Rovelli/PunctureEntropy.lean`](NRS3Rovelli/PunctureEntropy.lean) (`punctureEntropy_eq_log_card`, `entropy_proportional_to_area`, `bekensteinHawking_iff_immirzi`).
-* Sur la coupe en `0` de la chaîne à quatre sites, `M = 2` : `k` liens sont `k` piqûres de spin 1/2 : [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`numCross_three_zero`, `cutEntropy_spin_half`).
+* Sur la coupe en `0` de la chaîne à quatre sites, `M = 2` : k liens sont k piqûres de spin 1/2 : [`NRS3Rovelli/LinkPuncture.lean`](NRS3Rovelli/LinkPuncture.lean) (`numCross_three_zero`, `cutEntropy_spin_half`).
 * Une face du cube ouvert a `dy · dz` positions et son aire est l'aire LQG de ses piqûres : [`NRS3Rovelli/OpenCubeBridge.lean`](NRS3Rovelli/OpenCubeBridge.lean) (`card_faceSites`, `faceArea_eq_surfaceArea`).
 * Sur la tranche transverse, Bekenstein–Hawking fixe le même γ et `Λ = 3 π / (ℓ² dy dz k log 2) > 0` : [`NRS3Rovelli/CubeXYZ.lean`](NRS3Rovelli/CubeXYZ.lean) (`immirzi_bekensteinHawking_iff`, `cosmologicalConstantXYZ_pos`).
-* `θ_NRS(d) < arccos(1 / C_N^∞) ≈ 28,30°` pour tout `d ≥ 4` ; le plafond n'est pas atteint et c'est la borne supérieure : [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) (`angle_lt_ceiling`, `ceiling_not_attained`, `ceiling_isLUB`).
+* `θ_NRS(d) < arccos(1 / C_N^∞) ≈ 28,30°` pour tout d ≥ 4 ; le plafond n'est pas atteint et c'est la borne supérieure : [`NRS3Rovelli/Ceiling.lean`](NRS3Rovelli/Ceiling.lean) (`angle_lt_ceiling`, `ceiling_not_attained`, `ceiling_isLUB`).
 
 ---
 
@@ -103,18 +103,18 @@ physique ℝ³ est ouvert, infini et continu**.
 
 La paire d'opérateurs `(T_d, P_d)` représente le transport métrique :
 * L'espace n'est pas fragmenté en morceaux discrets.
-* Le paramètre `d` est la dimension de résolution de l'espace de Hilbert `ℋ_d` utilisé
+* Le paramètre d est la dimension de résolution de l'espace de Hilbert `ℋ_d` utilisé
   pour échantillonner l'action de translation et position le long d'un axe continu.
 * Sur les trois axes cartésiens continus orthogonaux X, Y, Z :
   `ℋ_{d³} = ℋ_d^{(x)} ⊗ ℋ_d^{(y)} ⊗ ℋ_d^{(z)}`, avec `[O_X, O_Y] = 0`.
 * L'espace-temps physique est la variété de Minkowski `ℝ³ × S¹` avec la fibre temporelle propre
-  sur `S¹` à l'échelle de longueur `a` :
-  * En dimension spatiale pure 3D (`d ≤ 3`), la saturation de Robertson–Schrödinger est exacte :
+  sur `S¹` à l'échelle de longueur a :
+  * En dimension spatiale pure 3D (d ≤ 3), la saturation de Robertson–Schrödinger est exacte :
     `C_N = 1`. Le transport est luminal (`dτ = 0`) et sans masse.
   * L'avancée le long de la fibre temporelle propre (`d = 4`, `dτ > 0`) active les matrices
     gamma de Dirac `4 × 4` et le défaut irréductible de Szegő :
     `C_N(4)² − 1 = (94 − 42√5)/5 ≈ 0.017029 > 0` (dépôt canonique, modules D8 et D20).
-  * La positivité du produit scalaire `⟨ψ|ψ⟩ ≥ 0` garantit un défaut de Gram `≥ 0`.
+  * La positivité du produit scalaire ⟨ψ|ψ⟩ ≥ 0 garantit un défaut de Gram ≥ 0.
 * La longueur de Planck `ℓ_P` agit comme **limite opérationnelle** de résolution de mesure
   sur l'espace continu ℝ³, établissant le quantum d'aire minimal `A(1/2) = a² = 4 ℓ_P² log 2`.
 
@@ -271,7 +271,7 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 | [`01 · nava-robertson-schrodinger`](https://github.com/naype888-cloud/nava-robertson-schrodinger) | Le canon : l'incertitude élémentaire dimensionnelle sur le cube ouvert, ℂᵈ ⊗ ℂᵈ ⊗ ℂᵈ |
 | [`02 · Proper-Time-General-Relativity`](https://github.com/naype888-cloud/Proper-Time-General-Relativity) | Le temps compte les pas : τ = 1/(φ\|t\|) à quatre sites ; masse effective, équivalence, gravitation |
 | [`03 · nrs3-mandelstam-tamm-cramer-rao`](https://github.com/naype888-cloud/nrs3-mandelstam-tamm-cramer-rao) | Mandelstam–Tamm et Cramér–Rao : aucun état n'est orthogonal à lui-même avant πħ/(2ΔE) |
-| [`04 · YM-By-Perelmans-surgery-method`](https://github.com/naype888-cloud/YM-By-Perelmans-surgery-method) | Yang–Mills sur réseau : loi d'aire uniforme, matrice de transfert, défaut de fibre (0 sorry) |
+| [`04 · YM-By-Perelmans-surgery-method`](https://github.com/naype888-cloud/YM-By-Perelmans-surgery-method) | Yang–Mills sur réseau : loi d'aire uniforme, matrice de transfert, défaut de fibre (`0 sorry`) |
 | [`05 · nrs3-tightbinding`](https://github.com/naype888-cloud/nrs3-tightbinding) | La chaîne de Physlib, le cube ouvert et la table périodique (H–Og), un cube 3D par élément |
 | [`06 · nrs3-cristales`](https://github.com/naype888-cloud/nrs3-cristales) | Cristaux : la symétrie donne la forme de Σ et Ω, le spectre donne la taille |
 | [`07 · nrs3-completude`](https://github.com/naype888-cloud/nrs3-completude) | Complétude constructive et limites spectrales par Robertson–Fiedler–Niven–Szegő |
@@ -282,7 +282,7 @@ les axiomes standard de ZFC : `propext`, `Classical.choice` et `Quot.sound`.
 | [`12 · nrs3-penrose`](https://github.com/naype888-cloud/nrs3-penrose) | Effondrement gravitationnel de Diósi–Penrose : temps de décohérence par auto-énergie |
 | [**13 · nrs3-rovelli-lqg**](https://github.com/naype888-cloud/nrs3-rovelli-lqg) | Gravité quantique à boucles : spectre d'aire discrète, opérateur de surface et saturation de spin *(ce dépôt)* |
 | [`14 · nrs3-uncertainty-cone`](https://github.com/naype888-cloud/nrs3-uncertainty-cone) | Cône de lumière futur et cercle de Minkowski : structure causale sous revêtement SL(2, ℂ) |
-| [`15 · lean4-commits`](https://github.com/naype888-cloud/lean4-commits) | 53 PRs fusionnées dans leanprover-community/physlib : catalogue de preuves formelles, 0 sorry, ZFC |
+| [`15 · lean4-commits`](https://github.com/naype888-cloud/lean4-commits) | 53 PRs fusionnées dans leanprover-community/physlib : catalogue de preuves formelles, `0 sorry`, ZFC |
 ---
 
 ## ⏱️ Chronologie 1911–1945
@@ -312,7 +312,7 @@ lake build
 lake env lean Verification/Axioms.lean   # uniquement propext, Classical.choice, Quot.sound
 ```
 
-Spécifications formelles : 0 sorry, aucun axiome ad hoc, `autoImplicit = false`,
+Spécifications formelles : `0 sorry`, aucun axiome ad hoc, `autoImplicit = false`,
 lignes de 100 caractères au maximum.
 
 ---
