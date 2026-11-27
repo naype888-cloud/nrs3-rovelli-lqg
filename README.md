@@ -2,7 +2,8 @@
 
 <div align="center">
 
-# RS<sup>N</sup>³ · Rovelli — Gravité quantique à boucles
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/oscuro/titre_rovelli_lqg.png"><img src="assets/claro/titre_rovelli_lqg.png" alt="RS^N³ · Rovelli — Gravité quantique à boucles" width="860"></picture>
+**"RS<sup>N</sup>³ · Rovelli — Gravité quantique à boucles"**
 ### Granularité quantique lue comme incertitude dimensionnelle sur l'espace continu ℝ³
 
 **Eduardo Nava Hernández**  
